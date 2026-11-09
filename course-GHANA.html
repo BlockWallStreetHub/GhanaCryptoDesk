@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Course | Ghana Bitcoin Information Desk | Block Wall Street</title>
+<meta name="description" content="Ghana Bitcoin Information Desk by Block Wall Street: Bitcoin price in cedis, Ghana and Africa crypto news, DCA calculator back to 2014, exchanges, merchants and heat maps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a1628;--navy2:#0f2038;--navy3:#152a47;--line:#22395c;
+  --gold:#f2b632;--gold2:#d4a63a;--text:#e8edf5;--muted:#8fa0b8;
+  --green:#2ecc71;--red:#ff5a5f;--gh-red:#ce1126;--gh-gold:#fcd116;--gh-green:#006b3f;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--navy);color:var(--text);font-family:'Barlow',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:17px;line-height:1.55;
+  background-image:radial-gradient(1200px 500px at 85% -10%,rgba(242,182,50,.08),transparent 60%),radial-gradient(900px 500px at -10% 10%,rgba(0,107,63,.12),transparent 60%);}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+.flag{display:flex;height:6px}
+.flag i{flex:1;display:block}
+.flag i:nth-child(1){background:var(--gh-red)}.flag i:nth-child(2){background:var(--gh-gold)}.flag i:nth-child(3){background:var(--gh-green)}
+header.top{position:sticky;top:0;z-index:50;background:rgba(10,22,40,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1200px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-family:'Bebas Neue',Impact,sans-serif;font-size:26px;letter-spacing:1.5px;color:#fff;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.brand .star{color:var(--gold);font-size:22px}
+.brand small{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;margin-left:4px}
+nav.main{display:flex;gap:4px;flex-wrap:wrap}
+nav.main a{color:var(--muted);padding:7px 12px;border-radius:999px;font-weight:600;font-size:15px;white-space:nowrap}
+nav.main a:hover{color:#fff;background:var(--navy3);text-decoration:none}
+nav.main a.on{color:var(--navy);background:var(--gold)}
+.ticker{background:var(--navy2);border-bottom:1px solid var(--line);font-family:'DM Mono',monospace;font-size:13px}
+.ticker-in{max-width:1200px;margin:0 auto;padding:7px 18px;display:flex;gap:22px;flex-wrap:wrap;align-items:center;color:var(--muted)}
+.ticker b{color:#fff;font-weight:500}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--muted);margin-right:6px}
+.dot.live{background:var(--green);box-shadow:0 0 8px var(--green)}
+.dot.stale{background:var(--gold)}
+.up{color:var(--green)}.down{color:var(--red)}
+main{max-width:1200px;margin:0 auto;padding:26px 18px 60px}
+h1,h2,h3{font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:1px;font-weight:400;margin:0}
+h1{font-size:clamp(40px,7vw,68px);line-height:1;color:#fff}
+h1 em{color:var(--gold);font-style:normal}
+h2{font-size:34px;color:#fff;margin:34px 0 12px}
+h3{font-size:24px;color:var(--gold);margin:0 0 8px}
+.lead{color:var(--muted);font-size:19px;max-width:820px;margin:12px 0 0}
+.eyebrow{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:linear-gradient(180deg,var(--navy2),#0c1b31);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.card.link{display:block;color:var(--text);transition:.15s}
+.card.link:hover{border-color:var(--gold);transform:translateY(-2px);text-decoration:none}
+.card.link .arrow{color:var(--gold);font-family:'DM Mono',monospace;font-size:13px}
+.stat .lbl{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.stat .val{font-family:'DM Mono',monospace;font-size:30px;color:#fff;margin-top:4px;word-break:break-word}
+.stat .sub{font-size:14px;color:var(--muted);margin-top:2px}
+.gold{color:var(--gold)}
+.note{border-left:3px solid var(--gold);background:rgba(242,182,50,.07);padding:12px 16px;border-radius:0 10px 10px 0;color:#dfe6f2;font-size:15.5px;margin:16px 0}
+.note.warn{border-color:var(--red);background:rgba(255,90,95,.08)}
+.note.ok{border-color:var(--green);background:rgba(46,204,113,.07)}
+.pill{display:inline-block;font-family:'DM Mono',monospace;font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:6px;letter-spacing:.5px}
+.pill.gold{color:var(--gold);border-color:var(--gold2)}
+.pill.green{color:var(--green);border-color:#1c7a47}
+.pill.red{color:var(--red);border-color:#8a2b2f}
+button,.btn{font-family:'Barlow',sans-serif;font-weight:700;font-size:15px;background:var(--gold);color:var(--navy);border:0;border-radius:10px;padding:10px 18px;cursor:pointer}
+button:hover,.btn:hover{filter:brightness(1.08);text-decoration:none}
+button.ghost,.btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold2)}
+button.chip{background:var(--navy3);color:var(--muted);border:1px solid var(--line);padding:6px 13px;border-radius:999px;font-size:14px;font-weight:600}
+button.chip.on{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+label{display:block;font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+input,select{width:100%;background:#0b1830;color:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:17px;font-family:'DM Mono',monospace}
+input:focus,select:focus{outline:2px solid var(--gold2);outline-offset:0}
+.form{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));align-items:end}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 12px;border-bottom:1px solid #162b49;vertical-align:top}
+tr:hover td{background:rgba(255,255,255,.02)}
+td.num,th.num{text-align:right;font-family:'DM Mono',monospace;white-space:nowrap}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--navy2)}
+.tw table{min-width:640px}
+.badge{display:inline-block;min-width:44px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;background:var(--navy3);border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:#fff;margin-right:8px}
+tr.hl td{background:rgba(242,182,50,.09)}
+tr.hl .badge{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.chart{position:relative;background:var(--navy2);border:1px solid var(--line);border-radius:var(--radius);padding:10px}
+.chart svg{width:100%;height:auto;display:block}
+.tip{position:absolute;pointer-events:none;background:#06101f;border:1px solid var(--gold2);border-radius:8px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:12px;display:none;white-space:nowrap;z-index:5}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted);margin:6px 4px 0}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+.news{display:grid;gap:12px}
+.item{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:block;color:var(--text)}
+.item:hover{border-color:var(--gold);text-decoration:none}
+.item .t{font-weight:700;font-size:18px;line-height:1.3;color:#fff}
+.item .m{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-top:6px;display:flex;gap:12px;flex-wrap:wrap}
+.item .d{font-size:15px;color:#b8c4d8;margin-top:6px}
+.tl{border-left:2px solid var(--line);margin-left:8px;padding-left:20px}
+.tl .ev{position:relative;margin:0 0 18px}
+.tl .ev:before{content:'';position:absolute;left:-27px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--navy)}
+.tl .ev .dt{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:1px}
+.tl .ev b{color:#fff}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.hm{display:grid;gap:4px}
+.cell{border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;color:#fff;min-height:40px;padding:2px;text-align:center}
+.tile{aspect-ratio:1/1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'DM Mono',monospace;color:#fff;cursor:pointer;border:2px solid transparent;font-size:13px;line-height:1.15;padding:2px}
+.tile small{font-size:10.5px;opacity:.9}
+.tile.gh{border-color:#fff;box-shadow:0 0 0 2px var(--gold)}
+.tile.sel{border-color:var(--gold)}
+.tile.nodata{background:#101f36;color:#566a8a;cursor:default}
+.scale{height:12px;border-radius:6px;margin:8px 0 2px}
+.steps{counter-reset:s;display:grid;gap:12px}
+.steps .st{counter-increment:s;padding-left:54px;position:relative}
+.steps .st:before{content:counter(s);position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;background:var(--gold);color:var(--navy);font-family:'Bebas Neue';font-size:24px;display:flex;align-items:center;justify-content:center}
+.steps .st b{color:#fff}
+ul.clean{margin:8px 0 0;padding-left:20px}
+ul.clean li{margin:5px 0}
+.small{font-size:14px;color:var(--muted)}
+.mono{font-family:'DM Mono',monospace}
+footer{border-top:1px solid var(--line);background:#07111f;padding:26px 18px;color:var(--muted);font-size:14px}
+.foot-in{max-width:1200px;margin:0 auto;display:grid;gap:10px}
+.foot-in b{color:#fff}
+.skeleton{opacity:.5}
+@media(max-width:640px){body{font-size:16px}.stat .val{font-size:24px}h2{font-size:28px}.brand small{display:none}}
+
+</style>
+</head>
+<body>
+<div class="flag"><i></i><i></i><i></i></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="star">&#9733;</span> GHANA BITCOIN DESK <small>BLOCK WALL STREET</small></div>
+  <nav class="main"><a href="index-GHANA.html">Home</a><a href="price-GHANA.html">Price</a><a href="world-news-GHANA.html">World News</a><a href="ghana-africa-news-GHANA.html">Ghana &amp; Africa News</a><a href="dca-calculator-GHANA.html">DCA Calculator</a><a href="portfolio-GHANA.html">Portfolio</a><a href="exchanges-merchants-GHANA.html">Exchanges &amp; Merchants</a><a href="heat-map-GHANA.html">Heat Maps</a><a href="course-GHANA.html" class="on">Course</a></nav>
+</div></header>
+<div class="ticker"><div class="ticker-in" id="ticker-in"><span><span class="dot"></span>Loading live prices&hellip;</span></div></div>
+<main>
+
+<div class="eyebrow">Self-paced course &middot; take it at your leisure</div>
+<h1>How to Use the <em>Ghana Bitcoin Desk</em></h1>
+<p class="lead">Seven short lessons &mdash; one for each tool on the Desk &mdash; each followed by a quick quiz, then a final exam and a certificate of completion. Go at your own pace: your progress is saved in this browser, so you can stop and come back any time.</p>
+
+<div class="card" style="margin-top:18px">
+  <div class="row"><b class="gold" id="pg-text">Progress</b><span class="sp"></span><span class="small" id="pg-sub"></span></div>
+  <div style="height:10px;border-radius:5px;background:#12294a;margin-top:8px"><div id="pg-bar" style="height:10px;border-radius:5px;width:0;background:linear-gradient(90deg,#ce1126,#fcd116,#006b3f)"></div></div>
+</div>
+<div class="tabs" id="nav"></div>
+<div id="view"></div>
+
+</main>
+<footer><div class="foot-in">
+  <div><b>Block Wall Street</b> &middot; Chicago &harr; Ghana &middot; <a href="https://blockwallstreet.biz" target="_blank" rel="noopener">blockwallstreet.biz</a></div>
+  <div>Educational information only &mdash; not financial, investment, tax or legal advice. Bitcoin is volatile and you can lose money. Bitcoin is not legal tender in Ghana; the cedi is. Prices from CoinGecko / Coinbase / Binance and exchange rates from open.er-api.com; news from third-party publishers; historical figures are rounded approximations. Always verify a platform's registration with the Bank of Ghana before depositing.</div>
+</div></footer>
+<script>
+/* Ghana Bitcoin Info Desk — shared engine (Block Wall Street) */
+var BWS = (function(){
+  'use strict';
+
+  /* First-of-month BTC/USD reference prices (rounded). Jan 2014 → Nov 2026.
+     Each value is the prior month's closing price = the price on the 1st. */
+  var MONTHLY = {
+    2014:[754,815,564,457,446,629,640,589,479,387,338,378],
+    2015:[320,217,255,244,236,230,263,285,230,236,315,378],
+    2016:[430,369,437,417,449,531,673,625,575,609,701,742],
+    2017:[963,966,1180,1071,1348,2304,2480,2875,4703,4338,6468,10233],
+    2018:[14156,10222,10326,6926,9246,7494,6391,7735,7011,6626,6372,4041],
+    2019:[3709,3411,3854,4106,5351,8574,10817,9605,9630,8293,9199,7570],
+    2020:[7193,9351,8530,6411,8622,9462,9137,11323,11681,10776,13781,19698],
+    2021:[28949,33114,45137,58918,57750,37332,35040,41461,47167,43790,61319,57005],
+    2022:[46306,38483,43193,45538,37714,31792,19943,23296,20050,19432,20495,17168],
+    2023:[16547,23139,23147,28478,29268,27219,30477,29232,25931,26962,34667,37713],
+    2024:[42265,42580,61198,71333,60636,67491,62678,66707,58969,63329,70215,96408],
+    2025:[93430,102405,84350,82550,94172,104590,107136,115764,108237,114056,109600,90400],
+    2026:[87508,78626,67006,68233,76305,73580,58562,62814,78540,83554,77582]
+  };
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var SERIES = [];
+  Object.keys(MONTHLY).forEach(function(y){
+    MONTHLY[y].forEach(function(p,i){ SERIES.push({t:Date.UTC(+y,i,1),p:p}); });
+  });
+
+  /* Approximate GHS per 1 USD at key dates (cedi history; interpolated between points). */
+  var GHS_ANCHORS = [
+    ['2014-01-01',2.2],['2015-01-01',3.2],['2016-01-01',3.8],['2017-01-01',4.2],['2018-01-01',4.5],
+    ['2019-01-01',4.8],['2020-01-01',5.5],['2021-01-01',5.75],['2022-01-01',6.0],['2023-01-01',8.6],
+    ['2024-01-01',11.9],['2025-01-01',14.7],['2025-03-01',15.5],['2025-05-31',10.4],['2026-01-01',10.45]
+  ].map(function(a){ return {t:Date.parse(a[0]+'T00:00:00Z'),r:a[1]}; });
+
+  var CURRENCIES = [
+    ['GHS','Ghanaian cedi','Ghana','GH₵'],
+    ['NGN','Nigerian naira','Nigeria','₦'],
+    ['KES','Kenyan shilling','Kenya','KSh'],
+    ['ZAR','South African rand','South Africa','R'],
+    ['UGX','Ugandan shilling','Uganda','USh'],
+    ['TZS','Tanzanian shilling','Tanzania','TSh'],
+    ['ETB','Ethiopian birr','Ethiopia','Br'],
+    ['XOF','West African CFA franc','Senegal, Côte d’Ivoire, Benin, Togo & others','CFA'],
+    ['XAF','Central African CFA franc','Cameroon, Gabon & others','FCFA'],
+    ['EGP','Egyptian pound','Egypt','E£'],
+    ['MAD','Moroccan dirham','Morocco','MAD'],
+    ['ZMW','Zambian kwacha','Zambia','ZK'],
+    ['RWF','Rwandan franc','Rwanda','FRw'],
+    ['USD','US dollar','United States','$'],
+    ['EUR','Euro','Eurozone','€'],
+    ['GBP','British pound','United Kingdom','£']
+  ];
+
+  /* Offline reference values — only used if live feeds cannot be reached. */
+  var LIVE = {usd:77454, chg24:null, src:'reference', stale:true, ts:0};
+  var FX = {rates:{USD:1,GHS:10.8,NGN:1500,KES:129,ZAR:17.5,UGX:3600,TZS:2500,ETB:150,XOF:570,XAF:570,EGP:48,MAD:9.2,ZMW:24,RWF:1450,EUR:0.93,GBP:0.78}, src:'reference', stale:true, ts:0};
+  var DAILY = null;
+  var listeners = [];
+  var ready = false;
+
+  function $(s,r){ return (r||document).querySelector(s); }
+  function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+
+  function fetchJSON(url, ms){
+    var ctl = (typeof AbortController!=='undefined') ? new AbortController() : null;
+    var timer = setTimeout(function(){ if(ctl) ctl.abort(); }, ms||9000);
+    return fetch(url, ctl?{signal:ctl.signal}:{}).then(function(r){
+      clearTimeout(timer);
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    }).catch(function(e){ clearTimeout(timer); throw e; });
+  }
+  function fetchText(url, ms){
+    var ctl = (typeof AbortController!=='undefined') ? new AbortController() : null;
+    var timer = setTimeout(function(){ if(ctl) ctl.abort(); }, ms||10000);
+    return fetch(url, ctl?{signal:ctl.signal}:{}).then(function(r){
+      clearTimeout(timer);
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.text();
+    }).catch(function(e){ clearTimeout(timer); throw e; });
+  }
+  function cacheGet(k,maxAge){
+    try{ var v=JSON.parse(sessionStorage.getItem('bws_'+k)); if(v && Date.now()-v.ts<(maxAge||60000)) return v; }catch(e){}
+    return null;
+  }
+  function cacheSet(k,v){ try{ sessionStorage.setItem('bws_'+k, JSON.stringify(v)); }catch(e){} }
+
+  async function loadLive(force){
+    var c = !force && cacheGet('live');
+    if(c && !c.stale){ LIVE=c; return LIVE; }
+    try{
+      var j = await fetchJSON('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+      LIVE = {usd:j.bitcoin.usd, chg24:j.bitcoin.usd_24h_change, src:'CoinGecko', stale:false, ts:Date.now()};
+    }catch(e){
+      try{
+        var k = await fetchJSON('https://api.coinbase.com/v2/prices/BTC-USD/spot');
+        LIVE = {usd:parseFloat(k.data.amount), chg24:null, src:'Coinbase', stale:false, ts:Date.now()};
+      }catch(e2){
+        try{
+          var b = await fetchJSON('https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT');
+          LIVE = {usd:parseFloat(b.lastPrice), chg24:parseFloat(b.priceChangePercent), src:'Binance', stale:false, ts:Date.now()};
+        }catch(e3){ LIVE.stale = true; }
+      }
+    }
+    if(!LIVE.stale) cacheSet('live', LIVE);
+    return LIVE;
+  }
+  async function loadFX(force){
+    var c = !force && cacheGet('fx', 600000);
+    if(c && !c.stale){ FX=c; return FX; }
+    try{
+      var j = await fetchJSON('https://open.er-api.com/v6/latest/USD');
+      if(j && j.rates){ FX = {rates:j.rates, src:'open.er-api.com', stale:false, ts:Date.now()}; }
+      else throw new Error('bad');
+    }catch(e){
+      try{
+        var k = await fetchJSON('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');
+        var r = {}; Object.keys(k.usd).forEach(function(c){ r[c.toUpperCase()] = k.usd[c]; });
+        FX = {rates:r, src:'currency-api', stale:false, ts:Date.now()};
+      }catch(e2){ FX.stale = true; }
+    }
+    if(!FX.stale) cacheSet('fx', FX);
+    return FX;
+  }
+  /* Optional: finer daily history for DCA (blockchain.com public chart API) */
+  async function loadDaily(){
+    if(DAILY) return DAILY;
+    try{
+      var j = await fetchJSON('https://api.blockchain.info/charts/market-price?timespan=all&sampled=true&metadata=false&cors=true&format=json', 15000);
+      var pts = (j.values||[]).filter(function(v){ return v.y>0 && v.x*1000>=Date.UTC(2013,11,1); }).map(function(v){ return {t:v.x*1000,p:v.y}; });
+      if(pts.length>500){ DAILY = pts; }
+    }catch(e){}
+    return DAILY;
+  }
+
+  function rate(code){ var r=FX.rates[code]; return (r===undefined||r===null)?null:r; }
+  function live(){ return LIVE; }
+  function fxInfo(){ return FX; }
+  function btcIn(code){ var r=rate(code); return r==null?null:LIVE.usd*r; }
+
+  /* ---------- history helpers ---------- */
+  function fullSeries(){
+    var s = DAILY ? DAILY.slice() : SERIES.slice();
+    var last = s[s.length-1];
+    var now = Date.now();
+    if(now>last.t) s.push({t:now,p:LIVE.usd});
+    return s;
+  }
+  function priceAt(t, series){
+    series = series || fullSeries();
+    if(t<=series[0].t) return series[0].p;
+    var last = series[series.length-1];
+    if(t>=last.t) return last.p;
+    var lo=0, hi=series.length-1;
+    while(hi-lo>1){ var mid=(lo+hi)>>1; if(series[mid].t<=t) lo=mid; else hi=mid; }
+    var a=series[lo], b=series[hi];
+    return a.p + (b.p-a.p)*((t-a.t)/(b.t-a.t));
+  }
+  function ghsPerUsdAt(t){
+    var live = rate('GHS');
+    var pts = GHS_ANCHORS.slice();
+    if(live){ pts.push({t:Date.now(), r:live}); }
+    if(t<=pts[0].t) return pts[0].r;
+    var last = pts[pts.length-1];
+    if(t>=last.t) return last.r;
+    for(var i=1;i<pts.length;i++){
+      if(t<=pts[i].t){ var a=pts[i-1], b=pts[i]; return a.r + (b.r-a.r)*((t-a.t)/(b.t-a.t)); }
+    }
+    return last.r;
+  }
+
+  /* ---------- formatting ---------- */
+  function fmt(v, digits){
+    if(v==null || !isFinite(v)) return '—';
+    var d = digits==null ? (Math.abs(v)>=100?0:(Math.abs(v)>=1?2:4)) : digits;
+    return v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+  }
+  function money(v, sym, digits){ return (sym||'') + fmt(v,digits); }
+  function compact(v){
+    if(v==null||!isFinite(v)) return '—';
+    var a=Math.abs(v);
+    if(a>=1e9) return (v/1e9).toFixed(2)+'B';
+    if(a>=1e6) return (v/1e6).toFixed(2)+'M';
+    if(a>=1e4) return (v/1e3).toFixed(1)+'K';
+    return fmt(v,0);
+  }
+  function pct(v, d){
+    if(v==null||!isFinite(v)) return '—';
+    return (v>0?'+':'')+v.toFixed(d==null?2:d)+'%';
+  }
+  function cls(v){ return v>0?'up':(v<0?'down':''); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function symOf(code){ for(var i=0;i<CURRENCIES.length;i++) if(CURRENCIES[i][0]===code) return CURRENCIES[i][3]; return ''; }
+
+  /* ---------- ticker ---------- */
+  function paintTicker(){
+    var el = $('#ticker-in'); if(!el) return;
+    var ghs = rate('GHS');
+    var state = (LIVE.stale||FX.stale) ? 'stale' : 'live';
+    var label = state==='live' ? 'LIVE' : 'REFERENCE DATA — live feed unreachable';
+    var ch = LIVE.chg24;
+    el.innerHTML =
+      '<span><span class="dot '+state+'"></span>'+label+'</span>'+
+      '<span>BTC/USD <b>$'+fmt(LIVE.usd,0)+'</b>'+(ch!=null?' <span class="'+cls(ch)+'">'+pct(ch)+' 24h</span>':'')+'</span>'+
+      (ghs?'<span>BTC/GHS <b>GH₵'+fmt(LIVE.usd*ghs,0)+'</b></span><span>1 USD = <b>GH₵'+fmt(ghs,2)+'</b></span><span>GH₵1 = <b>'+fmt(1e8/(LIVE.usd*ghs),0)+' sats</b></span>':'')+
+      '<span class="sp"></span><span>Prices: '+esc(LIVE.src)+' · FX: '+esc(FX.src)+'</span>';
+  }
+
+  function onUpdate(fn){ listeners.push(fn); if(ready){ try{fn();}catch(e){console.error(e);} } }
+  function fire(){ listeners.forEach(function(fn){ try{fn();}catch(e){console.error(e);} }); }
+  async function refresh(force){
+    await Promise.all([loadLive(force), loadFX(force)]);
+    paintTicker(); ready = true; fire();
+  }
+  function start(){
+    paintTicker();
+    refresh(false);
+    setInterval(function(){ refresh(true); }, 90000);
+  }
+
+  /* ---------- SVG line chart with hover ---------- */
+  function niceTicks(min,max,n){
+    var span = max-min; if(span<=0) return [min];
+    var raw = span/n, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var norm = raw/mag, step = (norm<1.5?1:norm<3?2:norm<7?5:10)*mag;
+    var out=[], v=Math.ceil(min/step)*step;
+    for(; v<=max+step*0.001; v+=step) out.push(v);
+    return out;
+  }
+  function lineChart(el, series, o){
+    o = o||{};
+    var W=900, H=o.h||380, m={l:72,r:18,t:16,b:32};
+    var log = !!o.log, f = function(v){ return log?Math.log10(Math.max(v,1e-9)):v; };
+    var xs=[], ys=[];
+    series.forEach(function(s){ s.pts.forEach(function(p){ xs.push(p[0]); ys.push(p[1]); }); });
+    if(!xs.length){ el.innerHTML='<p class="small" style="padding:20px">No data</p>'; return; }
+    var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs);
+    var yMin=Math.min.apply(null,ys), yMax=Math.max.apply(null,ys);
+    var fy0 = log ? Math.log10(Math.max(yMin*0.8,1e-9)) : 0, fy1 = log ? Math.log10(yMax*1.25) : yMax*1.06;
+    var X=function(t){ return m.l+(t-x0)/(x1-x0||1)*(W-m.l-m.r); };
+    var Y=function(v){ return H-m.b-(f(v)-fy0)/((fy1-fy0)||1)*(H-m.t-m.b); };
+    var g='';
+    var yt = [];
+    if(log){ for(var k=Math.ceil(fy0); k<=Math.floor(fy1); k++) yt.push(Math.pow(10,k)); }
+    else yt = niceTicks(0, yMax*1.06, 5);
+    yt.forEach(function(v){
+      var y=Y(v);
+      g+='<line x1="'+m.l+'" x2="'+(W-m.r)+'" y1="'+y+'" y2="'+y+'" stroke="#1b3254" stroke-width="1"/>';
+      g+='<text x="'+(m.l-8)+'" y="'+(y+4)+'" text-anchor="end" fill="#8fa0b8" font-size="12" font-family="DM Mono,monospace">'+(o.yfmt?o.yfmt(v):compact(v))+'</text>';
+    });
+    var y0y = new Date(x0).getUTCFullYear(), y1y = new Date(x1).getUTCFullYear();
+    var stepY = (y1y-y0y)>8?2:1;
+    for(var yr=y0y+1; yr<=y1y; yr+=stepY){
+      var xx = X(Date.UTC(yr,0,1)); if(xx<m.l||xx>W-m.r) continue;
+      g+='<line x1="'+xx+'" x2="'+xx+'" y1="'+m.t+'" y2="'+(H-m.b)+'" stroke="#132641" stroke-width="1"/>';
+      g+='<text x="'+xx+'" y="'+(H-10)+'" text-anchor="middle" fill="#8fa0b8" font-size="12" font-family="DM Mono,monospace">'+yr+'</text>';
+    }
+    series.forEach(function(s){
+      var d=''; s.pts.forEach(function(p,i){ d+=(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1); });
+      if(s.area){
+        var a = d+'L'+X(s.pts[s.pts.length-1][0]).toFixed(1)+' '+(H-m.b)+'L'+X(s.pts[0][0]).toFixed(1)+' '+(H-m.b)+'Z';
+        g+='<path d="'+a+'" fill="'+s.color+'" opacity="0.18"/>';
+      }
+      g+='<path d="'+d+'" fill="none" stroke="'+s.color+'" stroke-width="'+(s.w||2.2)+'" stroke-linejoin="round" stroke-linecap="round"'+(s.dash?' stroke-dasharray="'+s.dash+'"':'')+'/>';
+    });
+    g+='<line class="xh" x1="0" x2="0" y1="'+m.t+'" y2="'+(H-m.b)+'" stroke="#f2b632" stroke-width="1" style="display:none"/>';
+    var svg = '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img">'+g+'</svg>';
+    var legend = '<div class="legend">'+series.map(function(s){ return '<span><i style="background:'+s.color+'"></i>'+esc(s.name)+'</span>'; }).join('')+'</div>';
+    el.innerHTML = svg+'<div class="tip"></div>'+legend;
+    var svgEl = el.querySelector('svg'), tip = el.querySelector('.tip'), xh = el.querySelector('.xh');
+    function nearest(pts,t){
+      var lo=0,hi=pts.length-1; while(hi-lo>1){ var mid=(lo+hi)>>1; if(pts[mid][0]<=t) lo=mid; else hi=mid; }
+      return (Math.abs(pts[lo][0]-t)<=Math.abs(pts[hi][0]-t))?pts[lo]:pts[hi];
+    }
+    svgEl.addEventListener('mousemove', function(e){
+      var r = svgEl.getBoundingClientRect();
+      var px = (e.clientX-r.left)/r.width*W;
+      if(px<m.l||px>W-m.r){ tip.style.display='none'; xh.style.display='none'; return; }
+      var t = x0+(px-m.l)/(W-m.l-m.r)*(x1-x0);
+      var html='<div style="color:#f2b632">'+new Date(t).toISOString().slice(0,10)+'</div>';
+      series.forEach(function(s){ var p=nearest(s.pts,t); html+='<div><span style="color:'+s.color+'">●</span> '+esc(s.name)+': <b>'+(o.tfmt?o.tfmt(p[1]):fmt(p[1]))+'</b></div>'; });
+      tip.innerHTML=html; tip.style.display='block';
+      var bx = e.clientX - el.getBoundingClientRect().left + 14;
+      if(bx+200>el.clientWidth) bx -= 230;
+      tip.style.left=bx+'px'; tip.style.top=(e.clientY-el.getBoundingClientRect().top-10)+'px';
+      xh.setAttribute('x1',px); xh.setAttribute('x2',px); xh.style.display='';
+    });
+    svgEl.addEventListener('mouseleave', function(){ tip.style.display='none'; xh.style.display='none'; });
+  }
+
+  if(typeof document!=='undefined'){
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start); else start();
+  }
+
+  return {
+    MONTHLY:MONTHLY, MONTHS:MONTHS, SERIES:SERIES, CURRENCIES:CURRENCIES,
+    $:$, $$:$$, esc:esc, fmt:fmt, money:money, compact:compact, pct:pct, cls:cls, symOf:symOf,
+    fetchJSON:fetchJSON, fetchText:fetchText, cacheGet:cacheGet, cacheSet:cacheSet,
+    loadLive:loadLive, loadFX:loadFX, loadDaily:loadDaily, rate:rate, live:live, fxInfo:fxInfo, btcIn:btcIn,
+    fullSeries:fullSeries, priceAt:priceAt, ghsPerUsdAt:ghsPerUsdAt, hasDaily:function(){return !!DAILY;},
+    onUpdate:onUpdate, refresh:refresh, lineChart:lineChart, niceTicks:niceTicks
+  };
+})();
+
+</script>
+
+<script>
+
+(function(){
+  var $=BWS.$, esc=BWS.esc, KEY='ghana_desk_course_v1';
+  var W3KEY='cbde23f6-f617-4b16-953f-7b0aab0e9f58';
+
+  var L=[
+  {id:'welcome',title:'1. Welcome to the Desk',page:'index-GHANA.html',pageLabel:'Open the Home page',
+   html:`<p>The Ghana Bitcoin Information Desk is a set of pages built to help you <b>learn about Bitcoin and follow it</b> &mdash; especially in Ghana. The menu at the top takes you to every tool: Home, Price, World News, Ghana &amp; Africa News, DCA Calculator, Portfolio, Exchanges &amp; Merchants, Heat Maps and this Course.</p>
+   <h3>The bar under the menu</h3><p>Every page has a thin bar showing the price of one Bitcoin in US dollars and in cedis, the 24-hour change, today's cedi rate, and <b>how many sats one cedi buys</b>. A <b>sat</b> (satoshi) is the smallest piece of Bitcoin: one Bitcoin is <b>100,000,000 sats</b>. A <b>green dot</b> means the numbers are live. A <b>gold dot</b> means the Desk could not reach the live feed and is showing older reference numbers.</p>
+   <h3>Good to know</h3><ul class="clean"><li>The Desk is <b>education</b>, not financial advice.</li><li>In Ghana the <b>cedi</b> is the only legal tender. Bitcoin is legal to buy and hold but is not legal tender.</li><li>The Virtual Asset Service Providers Act (Act 1154) was signed in December 2025. It makes crypto businesses register or get licensed with the Bank of Ghana and the SEC.</li></ul>`,
+   quiz:[
+    {q:'A gold dot in the bar under the menu means:',o:['The live feed could not be reached, so reference numbers are shown','Bitcoin hit a new record','The page is paid for','Your wallet is empty']},
+    {q:'How many sats are in one Bitcoin?',o:['100,000,000','1,000,000','10,000','1,000']},
+    {q:'What is the only legal tender in Ghana?',o:['The cedi','Bitcoin','The US dollar','Tether (USDT)']},
+    {q:'Which law, signed in December 2025, sets rules for crypto businesses in Ghana?',o:['The Virtual Asset Service Providers Act (Act 1154)','The Cedi Stability Act','The Mobile Money Act','The Bitcoin Legal Tender Act']}],
+   final:[
+    {q:'The bar says "GH₵1 = 120 sats". What does that mean?',o:['One cedi buys about 120 sats of Bitcoin','Bitcoin costs 120 cedis','You earn 120 sats a day','One sat costs 120 cedis']},
+    {q:'The Desk is meant to give:',o:['Education and information, not personal investment advice','Guaranteed profits','Loans in cedis','Tax filing']}]},
+
+  {id:'price',title:'2. The Price Desk',page:'price-GHANA.html',pageLabel:'Open the Price page',
+   html:`<p>The <b>Price</b> page shows what one Bitcoin costs in <b>16 currencies</b> &mdash; the cedi first, then naira, shillings, rand and more. Next to each price you see <b>1 sat =</b> (the price of one sat) and <b>100 units buys</b> (how many sats 100 of that currency would buy).</p>
+   <h3>The converter</h3><p>Type an amount, pick a currency, and see how much Bitcoin and how many sats you would get. Use the <b>Reverse</b> box to check what a certain amount of Bitcoin is worth in your currency.</p>
+   <h3>Why local currency matters</h3><p>When a currency gets weaker against the dollar, Bitcoin becomes <b>more expensive in that currency</b> &mdash; even if the dollar price did not move. That is why many Africans see Bitcoin as a way to protect savings.</p>
+   <h3>The history chart</h3><p>Switch between dollars and cedis, and between <b>log</b> and <b>linear</b> scale. Log scale shows percent moves fairly, so the early years are visible. Linear shows how big the recent gains were in real numbers. The cedi line uses <b>approximate</b> old exchange rates.</p>
+   <p class="small">The converter gives the mid-market price. Exchanges add spreads and fees, so P2P and Mobile Money prices are often a few percent different.</p>`,
+   quiz:[
+    {q:'The cedi gets weaker against the dollar while Bitcoin stays the same in dollars. The Bitcoin price in cedis will:',o:['Go up','Go down','Stay exactly the same','Become zero']},
+    {q:'Why might you pay a different price on an exchange than the converter shows?',o:['Exchanges add spreads and fees','The converter is broken','Bitcoin has two prices','Prices only change on Fridays']},
+    {q:'On the price table, "100 units buys" tells you:',o:['How many sats 100 of that currency would buy','How many coins exist','The fee you will pay','The price one year ago']},
+    {q:'Which chart scale makes early-year percent moves easier to see?',o:['Log scale','Linear scale','Neither','Both are identical']}],
+   final:[
+    {q:'The cedi line on the history chart is:',o:['Approximate, using estimated old exchange rates','Exact to the pesewa','Only for the last week','Taken from your wallet']},
+    {q:'To see what GH₵1,000 buys, you should:',o:['Type 1000 in the converter and choose GHS','Open the heat map','Add a wallet','Read the news page']}]},
+
+  {id:'news',title:'3. The News Desks',page:'ghana-africa-news-GHANA.html',pageLabel:'Open Ghana & Africa News',
+   html:`<p>There are two news pages. <b>World News</b> covers global Bitcoin and crypto: markets, ETFs, policy and technology. <b>Ghana &amp; Africa News</b> covers regulation, adoption, community and scams closer to home, and has a <b>timeline of Ghana's crypto law</b>.</p>
+   <h3>Using the filters</h3><p>Tap a chip to filter: <b>Regulation</b> (laws and central banks), <b>Markets</b> (prices and ETFs), <b>Adoption</b> (merchants, wallets, education) and <b>Security</b> (hacks and scams). Use the search box to find a topic, and <b>Refresh</b> for new stories. Tapping a story opens the original publisher's website.</p>
+   <h3>If the live feed fails</h3><p>Sometimes a browser cannot reach the news feeds. Then the Desk shows a set of curated headlines and tells you so.</p>
+   <h3>Scam alert</h3><p>Headlines that say a platform is &ldquo;licensed&rdquo; or &ldquo;guaranteed&rdquo; are sometimes paid placements. Confirm a company with the <b>Bank of Ghana Virtual Assets Department</b> before depositing money.</p>`,
+   quiz:[
+    {q:'Which filter chip would show hacks and scam warnings?',o:['Security','Markets','Adoption','Regulation']},
+    {q:'If the live news feeds cannot be reached, the Desk will:',o:['Show curated headlines and tell you','Show nothing','Delete your wallet list','Close the page']},
+    {q:'Who should you ask to confirm whether a crypto platform is registered in Ghana?',o:['The Bank of Ghana Virtual Assets Department','A stranger on social media','The platform itself only','Your neighbour']},
+    {q:'Which page has the timeline of Ghana\'s crypto law?',o:['Ghana & Africa News','World News','DCA Calculator','Portfolio']}],
+   final:[
+    {q:'A headline promises "guaranteed 20% returns every month". You should treat it as:',o:['A red flag for a scam','A safe opportunity','Official news','A Bank of Ghana notice']},
+    {q:'When you tap a story, you are taken to:',o:['The original publisher\'s website','A private chat','Your portfolio','A payment page']}]},
+
+  {id:'dca',title:'4. The DCA Calculator',page:'dca-calculator-GHANA.html',pageLabel:'Open the DCA Calculator',
+   html:`<p><b>Dollar-cost averaging (DCA)</b> means buying a <b>fixed amount on a fixed schedule</b>, no matter the price. You do not try to guess the bottom. Over time you buy more when the price is low and less when it is high.</p>
+   <h3>How to use it</h3><ol class="clean"><li>Enter the <b>amount each time</b>.</li><li>Pick <b>cedis or dollars</b>.</li><li>Pick <b>how often</b>: every week, every two weeks, or every month.</li><li>Pick a <b>start month and year</b> &mdash; any month since January 2014.</li></ol>
+   <h3>Reading the result</h3><p>You see <b>what you put in</b>, <b>what it is worth today</b>, your <b>gain or loss</b>, and your <b>average cost</b> (the average dollar price you paid for each Bitcoin). The chart compares money in versus value. The <b>what-if table</b> shows what starting in each year would have done. The note shows what one lump sum on day one would have done.</p>
+   <h3>Be honest about limits</h3><ul class="clean"><li>It is <b>history, not a promise</b>.</li><li>Fees and taxes are <b>not included</b>.</li><li>Cedi results use approximate old rates.</li><li>Only save money you can leave untouched for <b>four years or more</b>. Bitcoin has fallen over 70% before recovering.</li></ul>`,
+   quiz:[
+    {q:'Dollar-cost averaging means:',o:['Buying a fixed amount on a fixed schedule','Buying only at the lowest price','Selling every time the price rises','Putting all your money in on one day']},
+    {q:'You invest GH₵100 every month for 12 months. How many purchases is that?',o:['12','1','100','24']},
+    {q:'The "average cost" card shows:',o:['The average dollar price you paid per Bitcoin','Your monthly salary','The fee per trade','The price tomorrow']},
+    {q:'Does the calculator include exchange fees?',o:['No, real results will be somewhat lower','Yes, every fee','Only on Mondays','Only for cedis']}],
+   final:[
+    {q:'The calculator\'s results are:',o:['A history lesson, not a promise about the future','A guarantee','Official advice','A loan offer']},
+    {q:'The Desk suggests only saving money you can leave untouched for:',o:['Four years or more','One week','Two days','Until next payday']}]},
+
+  {id:'exchanges',title:'5. Exchanges & Merchants',page:'exchanges-merchants-GHANA.html',pageLabel:'Open Exchanges & Merchants',
+   html:`<p>This page lists where Ghanaians <b>buy and sell</b> Bitcoin, where to <b>keep it safe</b>, and who is <b>building with it</b>. Use the chips to filter: <b>Exchanges &amp; P2P</b>, <b>Cash-out</b> (to Mobile Money), <b>Wallets</b>, <b>Merchant tools</b> and <b>Communities</b>. Each card shows the payments supported and a <b>watch-outs</b> line.</p>
+   <div class="note warn"><b>A listing is not a licence check and not an endorsement.</b> Act 1154 requires crypto businesses to register or be licensed with the Bank of Ghana and the SEC. Always verify before you deposit.</div>
+   <h3>Five safe steps to buy with Mobile Money</h3><ol class="clean"><li><b>Verify your account</b> &mdash; the name must match your Mobile Money name.</li><li><b>Do a tiny test first</b> &mdash; GH₵50 to GH₵100.</li><li><b>Follow the escrow</b> on P2P and pay only the account shown in the order.</li><li><b>Never release Bitcoin early</b> &mdash; only when the cedis show in <i>your own</i> Mobile Money app, not on a screenshot.</li><li><b>Withdraw to a wallet you control</b> and test with a small amount. Bitcoin transactions cannot be reversed.</li></ol>
+   <p>Spending Bitcoin directly in shops is still niche. Communities like <b>Bitcoin Dua</b> in Agbozume, Volta Region, show how a whole town can use it.</p>`,
+   quiz:[
+    {q:'A platform appearing on the Exchanges page means:',o:['Nothing about its licence; you must verify it yourself','It is licensed by the Bank of Ghana','It is guaranteed safe','It pays you to join']},
+    {q:'When selling Bitcoin on P2P, release it only when:',o:['The cedis appear in your own Mobile Money app','The buyer sends a screenshot','The buyer says "trust me"','You get an SMS forwarded by the buyer']},
+    {q:'What size does the Desk suggest for your first test purchase?',o:['A small amount like GH₵50 to GH₵100','Your whole savings','GH₵10,000','Nothing — skip testing']},
+    {q:'Which type of listing is for keeping Bitcoin where you hold the keys?',o:['Wallets','Cash-out','Communities','Merchant tools']}],
+   final:[
+    {q:'The name on your Mobile Money wallet should:',o:['Match the name on your verified account','Be different for privacy','Be a nickname','Not matter']},
+    {q:'Bitcoin transactions, once confirmed, can be:',o:['Not reversed, so test with small amounts','Reversed by calling the bank','Reversed within 24 hours','Cancelled by the exchange']}]},
+
+  {id:'heat',title:'6. The Heat Maps',page:'heat-map-GHANA.html',pageLabel:'Open the Heat Maps',
+   html:`<p>A <b>heat map</b> uses colour to show where things are big or small, up or down. The Desk has three.</p>
+   <h3>1. Africa adoption map</h3><p>Each tile is a country; brighter gold means more crypto value received from July 2024 to June 2025. Ghana is outlined: about <b>$11.0 billion</b>, <b>#5 in Africa</b> by value and <b>#40 of 151</b> countries on the Chainalysis 2025 index. <b>Grey tiles</b> mean there is no figure in the Desk's sources &mdash; not that nobody uses crypto there. Tap a tile for details.</p>
+   <h3>2. Local-currency heat map</h3><p>Each cell shows how the price of one Bitcoin changed <b>in that currency</b> over 24 hours, 7, 30 and 90 days, and 1 year. <b>Green</b> means Bitcoin became more expensive in that currency; <b>red</b> means cheaper. Different colours for the same Bitcoin move show that the <i>currencies</i> moved too.</p>
+   <h3>3. Monthly returns calendar</h3><p>Years down the side, months across the top, each cell the percent change in dollars. The current month has a <b>*</b> and is measured to today's price. The bottom row is the average for each month. Notice how many red months there are even in winning years &mdash; that is why we teach patience and accumulation, not trading.</p>`,
+   quiz:[
+    {q:'A grey tile on the Africa map means:',o:['No figure in the Desk\'s sources','Zero crypto users','A banned country','A broken page']},
+    {q:'A green cell on the local-currency heat map means:',o:['Bitcoin became more expensive in that currency','The currency got stronger vs Bitcoin','Bitcoin is banned','You made a profit']},
+    {q:'Where does Ghana rank in Africa by crypto value received?',o:['Fifth','First','Tenth','Last']},
+    {q:'A * on the monthly calendar marks:',o:['The current, unfinished month','A record month','A banned month','A typing mistake']}],
+   final:[
+    {q:'Why can one Bitcoin move show different colours across currencies?',o:['The currencies themselves also moved against the dollar','The page is random','Each country has its own Bitcoin','Colours never match']},
+    {q:'What lesson do the many red months teach?',o:['Bitcoin is volatile, so patience and accumulation matter','Never save','Always trade daily','Red means stop forever']}]},
+
+  {id:'portfolio',title:'7. The Portfolio Manager',page:'portfolio-GHANA.html',pageLabel:'Open the Portfolio Manager',
+   html:`<p>The <b>Portfolio</b> page lets you watch all your crypto in one place. It is <b>view-only</b>: you add your <b>public address</b> &mdash; the one you share to receive money &mdash; and the Desk reads the balance from public blockchain data.</p>
+   <div class="note warn"><b>Never enter your recovery phrase (seed words) or private key here &mdash; or anywhere.</b> Anyone who has them can take everything. The page will refuse anything that looks like one.</div>
+   <h3>What you can add</h3><ul class="clean"><li><b>Bitcoin</b> addresses (single addresses; xpub keys are not supported).</li><li><b>EVM</b> addresses &mdash; one address covers <b>seven chains</b>: Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain and Avalanche.</li><li><b>Solana</b> addresses.</li><li><b>Exchange holdings</b> typed in by hand (for example Binance or Yellow Card).</li></ul>
+   <h3>What you see</h3><p>Total value in dollars or cedis, the same total in Bitcoin and sats, your <b>Bitcoin share</b> (percent held as BTC or wrapped BTC), a 24-hour change, a holdings table and allocation bars.</p>
+   <h3>Limits to remember</h3><ul class="clean"><li>Your list is saved <b>only in your browser</b>. Download the <b>backup file</b>; clearing browser data erases the list.</li><li>Only major tokens are detected on EVM chains. A token with no price counts as zero.</li><li>Public services you query can see the address and your internet connection.</li></ul>`,
+   quiz:[
+    {q:'What do you paste into the Portfolio Manager?',o:['Your public address','Your recovery phrase','Your private key','Your Mobile Money PIN']},
+    {q:'Where is your wallet list saved?',o:['Only in your own browser','On a Desk server','On the Bank of Ghana website','In your phone contacts']},
+    {q:'One EVM address covers how many chains on the Desk?',o:['Seven','One','Two','Fifty']},
+    {q:'Which of these must you NEVER type into any website?',o:['Your recovery phrase','Your wallet name','Your public address','An exchange name']}],
+   final:[
+    {q:'"Bitcoin share" shows:',o:['The percent of your portfolio held as BTC or wrapped BTC','Your profit','How many people own Bitcoin','Your tax owed']},
+    {q:'Why download a backup file?',o:['Clearing browser data erases your saved list','To get a bonus','To unlock Bitcoin','Because the Desk requires it daily']}]}
+  ];
+
+  var st={name:'',a:{},done:{},finalDone:false,sent:false};
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
+  function load(){ try{ var v=JSON.parse(localStorage.getItem(KEY)); if(v&&v.a) st=v; }catch(e){} }
+  function shuffle(a,seed){ var r=a.map(function(x,i){return {x:x,i:i};}); var s=seed; r.sort(function(p,q){ s=(s*9301+49297)%233280; return (s/233280)-0.5; }); return r; }
+  function pts(att){ return att<=1?100:att===2?75:att===3?50:25; }
+  function letter(p){ return p>=90?'A':p>=80?'B':p>=70?'C':p>=60?'D':'F'; }
+
+  function sectionGrade(key, n){
+    var tot=0; for(var i=0;i<n;i++){ var a=st.a[key+':'+i]; if(!a||!a.ok) return null; tot+=pts(a.att); } return tot/n;
+  }
+  function grades(){
+    var secs=L.map(function(s){ return sectionGrade(s.id,s.quiz.length); });
+    var fin=sectionGrade('final', L.length*2);
+    return {secs:secs, fin:fin};
+  }
+  function overall(g){
+    if(g.fin==null || g.secs.some(function(x){return x==null;})) return null;
+    var avg=g.secs.reduce(function(s,x){return s+x;},0)/g.secs.length; return avg*0.5+g.fin*0.5;
+  }
+  function progress(){
+    var g=grades(), n=g.secs.filter(function(x){return x!=null;}).length, tot=L.length+2;
+    var d=n+(g.fin!=null?1:0)+(st.sent?1:0);
+    $('#pg-bar').style.width=(d/tot*100)+'%';
+    $('#pg-text').textContent=d+' of '+tot+' steps complete';
+    $('#pg-sub').textContent=n+' of '+L.length+' lessons · final exam '+(g.fin!=null?'done':'not yet')+' · certificate '+(st.sent?'issued':'not yet');
+  }
+
+  var cur='welcome';
+  function navDraw(){
+    var g=grades(), allDone=g.secs.every(function(x){return x!=null;}), h='';
+    L.forEach(function(s,i){ h+='<button class="chip'+(cur===s.id?' on':'')+'" data-v="'+s.id+'">'+(g.secs[i]!=null?'✓ ':'')+s.title+'</button>'; });
+    h+='<button class="chip'+(cur==='final'?' on':'')+'" data-v="final"'+(allDone?'':' style="opacity:.55"')+'>'+(g.fin!=null?'✓ ':(allDone?'':'🔒 '))+'Final exam</button>';
+    h+='<button class="chip'+(cur==='cert'?' on':'')+'" data-v="cert"'+(overall(g)!=null?'':' style="opacity:.55"')+'>'+(st.sent?'✓ ':(overall(g)!=null?'':'🔒 '))+'Certificate</button>';
+    $('#nav').innerHTML=h;
+  }
+  function quizHTML(key, qs, seedBase){
+    var h='';
+    qs.forEach(function(q,i){
+      var id=key+':'+i, a=st.a[id]||{att:0,ok:false,wrong:[]};
+      var opts=shuffle(q.o,seedBase+i*7+3);
+      h+='<div class="card" style="margin:12px 0"><div style="color:#fff;font-weight:700;margin-bottom:8px">Q'+(i+1)+'. '+esc(q.q)+'</div>';
+      opts.forEach(function(o){
+        var isC=o.i===0, was=(a.wrong||[]).indexOf(o.i)>=0, cls='ghost';
+        var style='display:block;width:100%;text-align:left;margin:6px 0;';
+        if(a.ok && isC) style+='background:rgba(46,204,113,.18);border-color:#2ecc71;color:#fff;';
+        if(was) style+='opacity:.5;text-decoration:line-through;border-color:#8a2b2f;';
+        h+='<button class="ghost" style="'+style+'" data-q="'+id+'" data-o="'+o.i+'"'+((a.ok||was)?' disabled':'')+'>'+esc(o.x)+'</button>';
+      });
+      if(a.ok) h+='<div class="small up">✓ Correct'+(a.att>1?' after '+a.att+' tries':' on the first try')+' — '+pts(a.att)+' points</div>';
+      else if(a.att>0) h+='<div class="small down">Not quite. Re-read the lesson and try another answer.</div>';
+      h+='</div>';
+    });
+    return h;
+  }
+  function gradeBox(key,n,label){
+    var g=sectionGrade(key,n);
+    if(g==null){ var c=0; for(var i=0;i<n;i++){ var a=st.a[key+':'+i]; if(a&&a.ok) c++; } return '<div class="note">Answer every question correctly to finish. '+c+' of '+n+' done.</div>'; }
+    return '<div class="note ok"><b>'+label+' complete: '+Math.round(g)+'% ('+letter(g)+').</b> Grades start at 100 for a first-try answer and drop with each wrong guess. <button class="chip" data-retake="'+key+'" data-n="'+n+'">Retake for a new grade</button></div>';
+  }
+  function view(){
+    navDraw(); progress();
+    var g=grades(), allDone=g.secs.every(function(x){return x!=null;}), v=$('#view'), h='';
+    if(cur==='final'){
+      if(!allDone){ v.innerHTML='<div class="card"><h3>Final exam locked</h3>Finish all seven lessons first. You still have '+g.secs.filter(function(x){return x==null;}).length+' to go.</div>'; return; }
+      var fq=[]; L.forEach(function(s){ s.final.forEach(function(q){ fq.push(q); }); });
+      v.innerHTML='<h2>Final exam</h2><p class="lead">Fourteen questions covering every tool on the Desk.</p>'+quizHTML('final',fq,101)+gradeBox('final',fq.length,'Final exam')+(g.fin!=null?'<div style="margin-top:12px"><button data-v="cert">Continue to your certificate →</button></div>':'');
+      return;
+    }
+    if(cur==='cert'){ certView(); return; }
+    var s=L.filter(function(x){return x.id===cur;})[0], idx=L.indexOf(s);
+    h+='<h2>'+esc(s.title)+'</h2><div class="row" style="margin-bottom:8px"><button class="ghost" id="listen">🔊 Listen to this lesson</button><a class="btn" target="_blank" rel="noopener" href="'+s.page+'">'+esc(s.pageLabel)+' ↗</a></div>';
+    h+='<div class="card" id="lesson" style="font-size:18px">'+s.html+'</div><h2>Quick quiz</h2>'+quizHTML(s.id,s.quiz,idx*13+5)+gradeBox(s.id,s.quiz.length,'Lesson quiz');
+    var nxt=idx<L.length-1?L[idx+1].id:'final';
+    if(g.secs[idx]!=null) h+='<div style="margin-top:12px"><button data-v="'+nxt+'">'+(nxt==='final'?'Go to the final exam →':'Next lesson →')+'</button></div>';
+    v.innerHTML=h;
+  }
+  function certView(){
+    var g=grades(), o=overall(g), v=$('#view');
+    if(o==null){ v.innerHTML='<div class="card"><h3>Certificate locked</h3>Finish all seven lessons and the final exam to unlock your certificate.</div>'; return; }
+    var rows=L.map(function(s,i){ return '<tr><td>'+esc(s.title)+'</td><td class="num">'+Math.round(g.secs[i])+'% ('+letter(g.secs[i])+')</td></tr>'; }).join('')+
+      '<tr><td>Final exam</td><td class="num">'+Math.round(g.fin)+'% ('+letter(g.fin)+')</td></tr><tr><td><b>Overall grade</b></td><td class="num"><b class="gold">'+Math.round(o)+'% ('+letter(o)+')</b></td></tr>';
+    v.innerHTML='<h2>Congratulations!</h2><p class="lead">You finished the course. Type your name exactly as you want it on your certificate.</p>'+
+      '<div class="card"><div class="form"><div style="grid-column:span 2"><label for="nm">Your full name</label><input id="nm" value="'+esc(st.name)+'" placeholder="Your name"></div><div><label for="em">Your email (optional)</label><input id="em" type="email" placeholder="you@example.com"></div><div><button id="mk" style="width:100%">Create my certificate</button></div></div><div class="small" id="cm" style="margin-top:8px"></div></div>'+
+      '<h3 style="margin-top:18px">Your grades</h3><div class="tw"><table><tbody>'+rows+'</tbody></table></div>'+
+      '<div id="cwrap" style="margin-top:16px"></div>';
+    if(st.sent && st.name) drawCert();
+  }
+  function drawCert(){
+    var g=grades(), o=overall(g), c=document.createElement('canvas'); c.width=1600; c.height=1130; var x=c.getContext('2d');
+    x.fillStyle='#0a1628'; x.fillRect(0,0,1600,1130);
+    var bar=['#ce1126','#fcd116','#006b3f']; bar.forEach(function(col,i){ x.fillStyle=col; x.fillRect(i*533.4,0,534,22); x.fillRect(i*533.4,1108,534,22); });
+    x.strokeStyle='#f2b632'; x.lineWidth=4; x.strokeRect(50,60,1500,1010); x.lineWidth=1.5; x.strokeRect(68,78,1464,974);
+    x.textAlign='center'; x.fillStyle='#f2b632'; x.font='bold 30px "DM Mono",monospace'; x.fillText('★  BLOCK WALL STREET  ★',800,150);
+    x.fillStyle='#ffffff'; x.font='86px "Bebas Neue",Impact,sans-serif'; x.fillText('CERTIFICATE OF COMPLETION',800,265);
+    x.fillStyle='#8fa0b8'; x.font='28px Barlow,Arial,sans-serif'; x.fillText('This certifies that',800,345);
+    x.fillStyle='#f2b632'; var nm=st.name, fs=96; x.font=fs+'px "Bebas Neue",Impact,sans-serif'; while(x.measureText(nm).width>1300 && fs>40){ fs-=4; x.font=fs+'px "Bebas Neue",Impact,sans-serif'; } x.fillText(nm,800,450);
+    x.fillStyle='#8fa0b8'; x.font='28px Barlow,Arial,sans-serif'; x.fillText('has successfully completed the self-paced course',800,530);
+    x.fillStyle='#ffffff'; x.font='60px "Bebas Neue",Impact,sans-serif'; x.fillText('HOW TO USE THE GHANA BITCOIN INFORMATION DESK',800,615);
+    x.fillStyle='#8fa0b8'; x.font='26px Barlow,Arial,sans-serif'; x.fillText('Price Desk · News Desks · DCA Calculator · Exchanges & Merchants · Heat Maps · Portfolio Manager',800,670);
+    x.fillStyle='#ffffff'; x.font='bold 44px "DM Mono",monospace'; x.fillText('Overall grade: '+letter(o)+'  ('+Math.round(o)+'%)',800,780);
+    x.fillStyle='#8fa0b8'; x.font='26px Barlow,Arial,sans-serif'; x.fillText(new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}),800,860);
+    x.strokeStyle='#8fa0b8'; x.lineWidth=1.5; x.beginPath(); x.moveTo(560,975); x.lineTo(1040,975); x.stroke();
+    x.fillStyle='#f2b632'; x.font='24px "DM Mono",monospace'; x.fillText('BLOCK WALL STREET · CHICAGO ↔ GHANA',800,1010);
+    x.fillStyle='#8fa0b8'; x.font='18px Barlow,Arial,sans-serif'; x.fillText('Educational course. Not financial advice.',800,1040);
+    c.style.cssText='width:100%;height:auto;border:1px solid #22395c;border-radius:12px';
+    var w=$('#cwrap'); w.innerHTML=''; w.appendChild(c);
+    var b=document.createElement('button'); b.textContent='Download certificate (PNG)'; b.style.marginTop='12px';
+    b.onclick=function(){ c.toBlob(function(bl){ var a=document.createElement('a'); a.href=URL.createObjectURL(bl); a.download='Ghana-Desk-Course-Certificate.png'; document.body.appendChild(a); a.click(); a.remove(); }); };
+    w.appendChild(b);
+  }
+  async function sendReport(email){
+    var g=grades(), o=overall(g);
+    var lines=L.map(function(s,i){ return s.title+': '+Math.round(g.secs[i])+'% ('+letter(g.secs[i])+')'; }).concat(['Final exam: '+Math.round(g.fin)+'% ('+letter(g.fin)+')','OVERALL: '+Math.round(o)+'% ('+letter(o)+')']);
+    var body={access_key:W3KEY,subject:'Ghana Desk Course completed — '+st.name+' — '+Math.round(o)+'% ('+letter(o)+')',from_name:'Ghana Desk Course',name:st.name,email:email||'no-email-given@example.com',message:'Student: '+st.name+'\n'+(email?'Email: '+email+'\n':'')+'Completed: '+new Date().toString()+'\n\n'+lines.join('\n')};
+    var r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body)});
+    var j=await r.json(); if(!j.success) throw new Error(j.message||'failed');
+  }
+
+  document.addEventListener('click', function(e){
+    var b=e.target.closest('button,a'); if(!b) return;
+    if(b.dataset && b.dataset.v){ cur=b.dataset.v; view(); window.scrollTo({top:0,behavior:'smooth'}); return; }
+    if(b.dataset && b.dataset.q){
+      var id=b.dataset.q, key=id.split(':')[0], i=+id.split(':')[1], a=st.a[id]||{att:0,ok:false,wrong:[]};
+      a.att++; var o=+b.dataset.o; if(o===0) a.ok=true; else a.wrong.push(o);
+      st.a[id]=a; save(); view(); return;
+    }
+    if(b.dataset && b.dataset.retake){ var k=b.dataset.retake, n=+b.dataset.n; for(var q=0;q<n;q++) delete st.a[k+':'+q]; if(k==='final'||true){ st.sent=false; } save(); view(); return; }
+    if(b.id==='listen'){
+      if(!('speechSynthesis' in window)){ alert('Listening is not supported in this browser.'); return; }
+      if(speechSynthesis.speaking){ speechSynthesis.cancel(); return; }
+      var u=new SpeechSynthesisUtterance($('#lesson').textContent); u.rate=0.95; speechSynthesis.speak(u); return;
+    }
+    if(b.id==='mk'){
+      var nm=$('#nm').value.trim(), em=$('#em').value.trim(), cm=$('#cm');
+      if(nm.length<2){ cm.innerHTML='<span class="down">Please type your name.</span>'; return; }
+      st.name=nm; save(); b.disabled=true; cm.textContent='Creating your certificate and sending your grade report…';
+      var wasSent=st.sent;
+      (wasSent?Promise.resolve():sendReport(em)).then(function(){ st.sent=true; save(); cm.innerHTML='<span class="up">✓ Certificate ready. Your grade report was sent to Block Wall Street.</span>'; })
+        .catch(function(){ st.sent=true; save(); cm.innerHTML='<span class="gold">Your certificate is ready, but the grade report could not be sent (are you online?). Download your certificate and send a copy to Block Wall Street.</span>'; })
+        .then(function(){ b.disabled=false; drawCert(); navDraw(); progress(); });
+    }
+  });
+  load(); view();
+})();
+
+</script>
+</body>
+</html>

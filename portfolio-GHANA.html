@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio Manager | Ghana Bitcoin Information Desk | Block Wall Street</title>
+<meta name="description" content="Ghana Bitcoin Information Desk by Block Wall Street: Bitcoin price in cedis, Ghana and Africa crypto news, DCA calculator back to 2014, exchanges, merchants and heat maps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a1628;--navy2:#0f2038;--navy3:#152a47;--line:#22395c;
+  --gold:#f2b632;--gold2:#d4a63a;--text:#e8edf5;--muted:#8fa0b8;
+  --green:#2ecc71;--red:#ff5a5f;--gh-red:#ce1126;--gh-gold:#fcd116;--gh-green:#006b3f;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--navy);color:var(--text);font-family:'Barlow',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:17px;line-height:1.55;
+  background-image:radial-gradient(1200px 500px at 85% -10%,rgba(242,182,50,.08),transparent 60%),radial-gradient(900px 500px at -10% 10%,rgba(0,107,63,.12),transparent 60%);}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+.flag{display:flex;height:6px}
+.flag i{flex:1;display:block}
+.flag i:nth-child(1){background:var(--gh-red)}.flag i:nth-child(2){background:var(--gh-gold)}.flag i:nth-child(3){background:var(--gh-green)}
+header.top{position:sticky;top:0;z-index:50;background:rgba(10,22,40,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1200px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-family:'Bebas Neue',Impact,sans-serif;font-size:26px;letter-spacing:1.5px;color:#fff;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.brand .star{color:var(--gold);font-size:22px}
+.brand small{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;margin-left:4px}
+nav.main{display:flex;gap:4px;flex-wrap:wrap}
+nav.main a{color:var(--muted);padding:7px 12px;border-radius:999px;font-weight:600;font-size:15px;white-space:nowrap}
+nav.main a:hover{color:#fff;background:var(--navy3);text-decoration:none}
+nav.main a.on{color:var(--navy);background:var(--gold)}
+.ticker{background:var(--navy2);border-bottom:1px solid var(--line);font-family:'DM Mono',monospace;font-size:13px}
+.ticker-in{max-width:1200px;margin:0 auto;padding:7px 18px;display:flex;gap:22px;flex-wrap:wrap;align-items:center;color:var(--muted)}
+.ticker b{color:#fff;font-weight:500}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--muted);margin-right:6px}
+.dot.live{background:var(--green);box-shadow:0 0 8px var(--green)}
+.dot.stale{background:var(--gold)}
+.up{color:var(--green)}.down{color:var(--red)}
+main{max-width:1200px;margin:0 auto;padding:26px 18px 60px}
+h1,h2,h3{font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:1px;font-weight:400;margin:0}
+h1{font-size:clamp(40px,7vw,68px);line-height:1;color:#fff}
+h1 em{color:var(--gold);font-style:normal}
+h2{font-size:34px;color:#fff;margin:34px 0 12px}
+h3{font-size:24px;color:var(--gold);margin:0 0 8px}
+.lead{color:var(--muted);font-size:19px;max-width:820px;margin:12px 0 0}
+.eyebrow{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:linear-gradient(180deg,var(--navy2),#0c1b31);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.card.link{display:block;color:var(--text);transition:.15s}
+.card.link:hover{border-color:var(--gold);transform:translateY(-2px);text-decoration:none}
+.card.link .arrow{color:var(--gold);font-family:'DM Mono',monospace;font-size:13px}
+.stat .lbl{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.stat .val{font-family:'DM Mono',monospace;font-size:30px;color:#fff;margin-top:4px;word-break:break-word}
+.stat .sub{font-size:14px;color:var(--muted);margin-top:2px}
+.gold{color:var(--gold)}
+.note{border-left:3px solid var(--gold);background:rgba(242,182,50,.07);padding:12px 16px;border-radius:0 10px 10px 0;color:#dfe6f2;font-size:15.5px;margin:16px 0}
+.note.warn{border-color:var(--red);background:rgba(255,90,95,.08)}
+.note.ok{border-color:var(--green);background:rgba(46,204,113,.07)}
+.pill{display:inline-block;font-family:'DM Mono',monospace;font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:6px;letter-spacing:.5px}
+.pill.gold{color:var(--gold);border-color:var(--gold2)}
+.pill.green{color:var(--green);border-color:#1c7a47}
+.pill.red{color:var(--red);border-color:#8a2b2f}
+button,.btn{font-family:'Barlow',sans-serif;font-weight:700;font-size:15px;background:var(--gold);color:var(--navy);border:0;border-radius:10px;padding:10px 18px;cursor:pointer}
+button:hover,.btn:hover{filter:brightness(1.08);text-decoration:none}
+button.ghost,.btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold2)}
+button.chip{background:var(--navy3);color:var(--muted);border:1px solid var(--line);padding:6px 13px;border-radius:999px;font-size:14px;font-weight:600}
+button.chip.on{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+label{display:block;font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+input,select{width:100%;background:#0b1830;color:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:17px;font-family:'DM Mono',monospace}
+input:focus,select:focus{outline:2px solid var(--gold2);outline-offset:0}
+.form{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));align-items:end}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 12px;border-bottom:1px solid #162b49;vertical-align:top}
+tr:hover td{background:rgba(255,255,255,.02)}
+td.num,th.num{text-align:right;font-family:'DM Mono',monospace;white-space:nowrap}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--navy2)}
+.tw table{min-width:640px}
+.badge{display:inline-block;min-width:44px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;background:var(--navy3);border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:#fff;margin-right:8px}
+tr.hl td{background:rgba(242,182,50,.09)}
+tr.hl .badge{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.chart{position:relative;background:var(--navy2);border:1px solid var(--line);border-radius:var(--radius);padding:10px}
+.chart svg{width:100%;height:auto;display:block}
+.tip{position:absolute;pointer-events:none;background:#06101f;border:1px solid var(--gold2);border-radius:8px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:12px;display:none;white-space:nowrap;z-index:5}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted);margin:6px 4px 0}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+.news{display:grid;gap:12px}
+.item{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:block;color:var(--text)}
+.item:hover{border-color:var(--gold);text-decoration:none}
+.item .t{font-weight:700;font-size:18px;line-height:1.3;color:#fff}
+.item .m{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-top:6px;display:flex;gap:12px;flex-wrap:wrap}
+.item .d{font-size:15px;color:#b8c4d8;margin-top:6px}
+.tl{border-left:2px solid var(--line);margin-left:8px;padding-left:20px}
+.tl .ev{position:relative;margin:0 0 18px}
+.tl .ev:before{content:'';position:absolute;left:-27px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--navy)}
+.tl .ev .dt{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:1px}
+.tl .ev b{color:#fff}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.hm{display:grid;gap:4px}
+.cell{border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;color:#fff;min-height:40px;padding:2px;text-align:center}
+.tile{aspect-ratio:1/1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'DM Mono',monospace;color:#fff;cursor:pointer;border:2px solid transparent;font-size:13px;line-height:1.15;padding:2px}
+.tile small{font-size:10.5px;opacity:.9}
+.tile.gh{border-color:#fff;box-shadow:0 0 0 2px var(--gold)}
+.tile.sel{border-color:var(--gold)}
+.tile.nodata{background:#101f36;color:#566a8a;cursor:default}
+.scale{height:12px;border-radius:6px;margin:8px 0 2px}
+.steps{counter-reset:s;display:grid;gap:12px}
+.steps .st{counter-increment:s;padding-left:54px;position:relative}
+.steps .st:before{content:counter(s);position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;background:var(--gold);color:var(--navy);font-family:'Bebas Neue';font-size:24px;display:flex;align-items:center;justify-content:center}
+.steps .st b{color:#fff}
+ul.clean{margin:8px 0 0;padding-left:20px}
+ul.clean li{margin:5px 0}
+.small{font-size:14px;color:var(--muted)}
+.mono{font-family:'DM Mono',monospace}
+footer{border-top:1px solid var(--line);background:#07111f;padding:26px 18px;color:var(--muted);font-size:14px}
+.foot-in{max-width:1200px;margin:0 auto;display:grid;gap:10px}
+.foot-in b{color:#fff}
+.skeleton{opacity:.5}
+@media(max-width:640px){body{font-size:16px}.stat .val{font-size:24px}h2{font-size:28px}.brand small{display:none}}
+
+</style>
+</head>
+<body>
+<div class="flag"><i></i><i></i><i></i></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="star">&#9733;</span> GHANA BITCOIN DESK <small>BLOCK WALL STREET</small></div>
+  <nav class="main"><a href="index-GHANA.html">Home</a><a href="price-GHANA.html">Price</a><a href="world-news-GHANA.html">World News</a><a href="ghana-africa-news-GHANA.html">Ghana &amp; Africa News</a><a href="dca-calculator-GHANA.html">DCA Calculator</a><a href="portfolio-GHANA.html" class="on">Portfolio</a><a href="exchanges-merchants-GHANA.html">Exchanges &amp; Merchants</a><a href="heat-map-GHANA.html">Heat Maps</a><a href="course-GHANA.html">Course</a></nav>
+</div></header>
+<div class="ticker"><div class="ticker-in" id="ticker-in"><span><span class="dot"></span>Loading live prices&hellip;</span></div></div>
+<main>
+
+<div class="eyebrow">Stack tracker</div>
+<h1>Wallet <em>Portfolio Manager</em></h1>
+<p class="lead">Add your public wallet addresses on <b>Bitcoin</b>, <b>EVM chains</b> (Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain, Avalanche) and <b>Solana</b>, plus anything you hold on an exchange, and see everything in one place &mdash; valued in dollars or cedis, with your Bitcoin share front and centre.</p>
+
+<div class="note warn"><b>View-only. Never enter a recovery phrase or private key here &mdash; or anywhere.</b> This tool only needs your <i>public</i> address (the one you share to receive money). Your list is saved only in this browser. To read balances, your browser asks public services (mempool.space, public blockchain nodes, CoinGecko) about your address, so they can see the address and your internet connection &mdash; treat your addresses as visible to them.</div>
+
+<h2>Your portfolio</h2>
+<div class="row" style="margin-bottom:12px">
+  <label style="margin:0">Show values in</label>
+  <select id="vcur" style="width:auto"><option value="USD">US dollars</option><option value="GHS">Ghana cedis</option></select>
+  <span class="sp"></span>
+  <button id="refresh">Refresh balances</button>
+</div>
+<div class="grid g4" id="sum"></div>
+<div class="small" id="status" style="margin:10px 2px"></div>
+
+<h2>Add a wallet</h2>
+<div class="card">
+  <div class="form">
+    <div><label for="wl">Name (optional)</label><input id="wl" placeholder="e.g. Savings, Ledger, Phantom"></div>
+    <div><label for="wt">Network</label><select id="wt"><option value="btc">Bitcoin</option><option value="evm">EVM (all 7 chains)</option><option value="sol">Solana</option></select></div>
+    <div style="grid-column:span 2"><label for="wa">Public address</label><input id="wa" placeholder="Paste your public address" autocomplete="off" spellcheck="false"></div>
+    <div><button id="addw" style="width:100%">Add wallet</button></div>
+  </div>
+  <div id="werr" class="small" style="margin-top:8px"></div>
+  <div class="small" style="margin-top:8px">Bitcoin: paste individual addresses (extended keys like xpub/zpub aren't supported). EVM: one address covers all seven chains. Tokens shown: BTC, ETH, SOL, native gas coins, major stablecoins (USDC, USDT, DAI), and wrapped Bitcoin/Ether on each chain; Solana shows all token holdings it can price. Other EVM tokens and NFTs are not detected.</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+  <h3 style="font-size:20px">Add an exchange or off-chain holding</h3>
+  <div class="form">
+    <div><label for="ml">Where (optional)</label><input id="ml" placeholder="e.g. Binance, Yellow Card"></div>
+    <div><label for="ma">Asset</label><select id="ma"><option value="BTC">Bitcoin (BTC)</option><option value="ETH">Ethereum (ETH)</option><option value="SOL">Solana (SOL)</option><option value="USDT">Tether (USDT)</option><option value="USDC">USD Coin (USDC)</option></select></div>
+    <div><label for="mn">Amount</label><input id="mn" type="number" min="0" step="any" placeholder="0.00"></div>
+    <div><button class="ghost" id="addm" style="width:100%">Add holding</button></div>
+  </div>
+</div>
+
+<h2>Wallets &amp; holdings</h2>
+<div class="tw"><table>
+  <thead><tr><th>Wallet</th><th>Network</th><th class="num">Value</th><th>Status</th><th></th></tr></thead>
+  <tbody id="wtb"></tbody>
+</table></div>
+
+<div style="height:16px"></div>
+<div class="tw"><table>
+  <thead><tr><th>Asset</th><th>Held on</th><th class="num">Amount</th><th class="num">Price (USD)</th><th class="num">Value</th><th class="num">Share</th></tr></thead>
+  <tbody id="htb"></tbody>
+</table></div>
+
+<h2>Allocation</h2>
+<div class="grid g2">
+  <div class="card"><h3>By asset type</h3><div id="by-class"></div></div>
+  <div class="card"><h3>By network</h3><div id="by-chain"></div></div>
+</div>
+
+<h2>Backup</h2>
+<div class="card">
+  <div class="row"><button class="ghost" id="exp">Download backup (.json)</button><label class="btn ghost" style="margin:0;cursor:pointer;text-transform:none;font-family:Barlow,sans-serif;letter-spacing:0;font-size:15px">Restore backup<input id="imp" type="file" accept=".json,application/json" style="display:none"></label><button class="ghost" id="clear">Remove everything</button></div>
+  <div class="small" style="margin-top:8px">The backup contains only your wallet names, public addresses and manual holdings &mdash; no keys. Clearing your browser data erases the saved list, so keep a backup.</div>
+</div>
+<div class="note">Balances and prices are estimates from public data sources and may be delayed or briefly unavailable (free services rate-limit). Not tax, investment or accounting advice.</div>
+
+</main>
+<footer><div class="foot-in">
+  <div><b>Block Wall Street</b> &middot; Chicago &harr; Ghana &middot; <a href="https://blockwallstreet.biz" target="_blank" rel="noopener">blockwallstreet.biz</a></div>
+  <div>Educational information only &mdash; not financial, investment, tax or legal advice. Bitcoin is volatile and you can lose money. Bitcoin is not legal tender in Ghana; the cedi is. Prices from CoinGecko / Coinbase / Binance and exchange rates from open.er-api.com; news from third-party publishers; historical figures are rounded approximations. Always verify a platform's registration with the Bank of Ghana before depositing.</div>
+</div></footer>
+<script>
+/* Ghana Bitcoin Info Desk — shared engine (Block Wall Street) */
+var BWS = (function(){
+  'use strict';
+
+  /* First-of-month BTC/USD reference prices (rounded). Jan 2014 → Nov 2026.
+     Each value is the prior month's closing price = the price on the 1st. */
+  var MONTHLY = {
+    2014:[754,815,564,457,446,629,640,589,479,387,338,378],
+    2015:[320,217,255,244,236,230,263,285,230,236,315,378],
+    2016:[430,369,437,417,449,531,673,625,575,609,701,742],
+    2017:[963,966,1180,1071,1348,2304,2480,2875,4703,4338,6468,10233],
+    2018:[14156,10222,10326,6926,9246,7494,6391,7735,7011,6626,6372,4041],
+    2019:[3709,3411,3854,4106,5351,8574,10817,9605,9630,8293,9199,7570],
+    2020:[7193,9351,8530,6411,8622,9462,9137,11323,11681,10776,13781,19698],
+    2021:[28949,33114,45137,58918,57750,37332,35040,41461,47167,43790,61319,57005],
+    2022:[46306,38483,43193,45538,37714,31792,19943,23296,20050,19432,20495,17168],
+    2023:[16547,23139,23147,28478,29268,27219,30477,29232,25931,26962,34667,37713],
+    2024:[42265,42580,61198,71333,60636,67491,62678,66707,58969,63329,70215,96408],
+    2025:[93430,102405,84350,82550,94172,104590,107136,115764,108237,114056,109600,90400],
+    2026:[87508,78626,67006,68233,76305,73580,58562,62814,78540,83554,77582]
+  };
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var SERIES = [];
+  Object.keys(MONTHLY).forEach(function(y){
+    MONTHLY[y].forEach(function(p,i){ SERIES.push({t:Date.UTC(+y,i,1),p:p}); });
+  });
+
+  /* Approximate GHS per 1 USD at key dates (cedi history; interpolated between points). */
+  var GHS_ANCHORS = [
+    ['2014-01-01',2.2],['2015-01-01',3.2],['2016-01-01',3.8],['2017-01-01',4.2],['2018-01-01',4.5],
+    ['2019-01-01',4.8],['2020-01-01',5.5],['2021-01-01',5.75],['2022-01-01',6.0],['2023-01-01',8.6],
+    ['2024-01-01',11.9],['2025-01-01',14.7],['2025-03-01',15.5],['2025-05-31',10.4],['2026-01-01',10.45]
+  ].map(function(a){ return {t:Date.parse(a[0]+'T00:00:00Z'),r:a[1]}; });
+
+  var CURRENCIES = [
+    ['GHS','Ghanaian cedi','Ghana','GH₵'],
+    ['NGN','Nigerian naira','Nigeria','₦'],
+    ['KES','Kenyan shilling','Kenya','KSh'],
+    ['ZAR','South African rand','South Africa','R'],
+    ['UGX','Ugandan shilling','Uganda','USh'],
+    ['TZS','Tanzanian shilling','Tanzania','TSh'],
+    ['ETB','Ethiopian birr','Ethiopia','Br'],
+    ['XOF','West African CFA franc','Senegal, Côte d’Ivoire, Benin, Togo & others','CFA'],
+    ['XAF','Central African CFA franc','Cameroon, Gabon & others','FCFA'],
+    ['EGP','Egyptian pound','Egypt','E£'],
+    ['MAD','Moroccan dirham','Morocco','MAD'],
+    ['ZMW','Zambian kwacha','Zambia','ZK'],
+    ['RWF','Rwandan franc','Rwanda','FRw'],
+    ['USD','US dollar','United States','$'],
+    ['EUR','Euro','Eurozone','€'],
+    ['GBP','British pound','United Kingdom','£']
+  ];
+
+  /* Offline reference values — only used if live feeds cannot be reached. */
+  var LIVE = {usd:77454, chg24:null, src:'reference', stale:true, ts:0};
+  var FX = {rates:{USD:1,GHS:10.8,NGN:1500,KES:129,ZAR:17.5,UGX:3600,TZS:2500,ETB:150,XOF:570,XAF:570,EGP:48,MAD:9.2,ZMW:24,RWF:1450,EUR:0.93,GBP:0.78}, src:'reference', stale:true, ts:0};
+  var DAILY = null;
+  var listeners = [];
+  var ready = false;
+
+  function $(s,r){ return (r||document).querySelector(s); }
+  function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+
+  function fetchJSON(url, ms){
+    var ctl = (typeof AbortController!=='undefined') ? new AbortController() : null;
+    var timer = setTimeout(function(){ if(ctl) ctl.abort(); }, ms||9000);
+    return fetch(url, ctl?{signal:ctl.signal}:{}).then(function(r){
+      clearTimeout(timer);
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    }).catch(function(e){ clearTimeout(timer); throw e; });
+  }
+  function fetchText(url, ms){
+    var ctl = (typeof AbortController!=='undefined') ? new AbortController() : null;
+    var timer = setTimeout(function(){ if(ctl) ctl.abort(); }, ms||10000);
+    return fetch(url, ctl?{signal:ctl.signal}:{}).then(function(r){
+      clearTimeout(timer);
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.text();
+    }).catch(function(e){ clearTimeout(timer); throw e; });
+  }
+  function cacheGet(k,maxAge){
+    try{ var v=JSON.parse(sessionStorage.getItem('bws_'+k)); if(v && Date.now()-v.ts<(maxAge||60000)) return v; }catch(e){}
+    return null;
+  }
+  function cacheSet(k,v){ try{ sessionStorage.setItem('bws_'+k, JSON.stringify(v)); }catch(e){} }
+
+  async function loadLive(force){
+    var c = !force && cacheGet('live');
+    if(c && !c.stale){ LIVE=c; return LIVE; }
+    try{
+      var j = await fetchJSON('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+      LIVE = {usd:j.bitcoin.usd, chg24:j.bitcoin.usd_24h_change, src:'CoinGecko', stale:false, ts:Date.now()};
+    }catch(e){
+      try{
+        var k = await fetchJSON('https://api.coinbase.com/v2/prices/BTC-USD/spot');
+        LIVE = {usd:parseFloat(k.data.amount), chg24:null, src:'Coinbase', stale:false, ts:Date.now()};
+      }catch(e2){
+        try{
+          var b = await fetchJSON('https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT');
+          LIVE = {usd:parseFloat(b.lastPrice), chg24:parseFloat(b.priceChangePercent), src:'Binance', stale:false, ts:Date.now()};
+        }catch(e3){ LIVE.stale = true; }
+      }
+    }
+    if(!LIVE.stale) cacheSet('live', LIVE);
+    return LIVE;
+  }
+  async function loadFX(force){
+    var c = !force && cacheGet('fx', 600000);
+    if(c && !c.stale){ FX=c; return FX; }
+    try{
+      var j = await fetchJSON('https://open.er-api.com/v6/latest/USD');
+      if(j && j.rates){ FX = {rates:j.rates, src:'open.er-api.com', stale:false, ts:Date.now()}; }
+      else throw new Error('bad');
+    }catch(e){
+      try{
+        var k = await fetchJSON('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');
+        var r = {}; Object.keys(k.usd).forEach(function(c){ r[c.toUpperCase()] = k.usd[c]; });
+        FX = {rates:r, src:'currency-api', stale:false, ts:Date.now()};
+      }catch(e2){ FX.stale = true; }
+    }
+    if(!FX.stale) cacheSet('fx', FX);
+    return FX;
+  }
+  /* Optional: finer daily history for DCA (blockchain.com public chart API) */
+  async function loadDaily(){
+    if(DAILY) return DAILY;
+    try{
+      var j = await fetchJSON('https://api.blockchain.info/charts/market-price?timespan=all&sampled=true&metadata=false&cors=true&format=json', 15000);
+      var pts = (j.values||[]).filter(function(v){ return v.y>0 && v.x*1000>=Date.UTC(2013,11,1); }).map(function(v){ return {t:v.x*1000,p:v.y}; });
+      if(pts.length>500){ DAILY = pts; }
+    }catch(e){}
+    return DAILY;
+  }
+
+  function rate(code){ var r=FX.rates[code]; return (r===undefined||r===null)?null:r; }
+  function live(){ return LIVE; }
+  function fxInfo(){ return FX; }
+  function btcIn(code){ var r=rate(code); return r==null?null:LIVE.usd*r; }
+
+  /* ---------- history helpers ---------- */
+  function fullSeries(){
+    var s = DAILY ? DAILY.slice() : SERIES.slice();
+    var last = s[s.length-1];
+    var now = Date.now();
+    if(now>last.t) s.push({t:now,p:LIVE.usd});
+    return s;
+  }
+  function priceAt(t, series){
+    series = series || fullSeries();
+    if(t<=series[0].t) return series[0].p;
+    var last = series[series.length-1];
+    if(t>=last.t) return last.p;
+    var lo=0, hi=series.length-1;
+    while(hi-lo>1){ var mid=(lo+hi)>>1; if(series[mid].t<=t) lo=mid; else hi=mid; }
+    var a=series[lo], b=series[hi];
+    return a.p + (b.p-a.p)*((t-a.t)/(b.t-a.t));
+  }
+  function ghsPerUsdAt(t){
+    var live = rate('GHS');
+    var pts = GHS_ANCHORS.slice();
+    if(live){ pts.push({t:Date.now(), r:live}); }
+    if(t<=pts[0].t) return pts[0].r;
+    var last = pts[pts.length-1];
+    if(t>=last.t) return last.r;
+    for(var i=1;i<pts.length;i++){
+      if(t<=pts[i].t){ var a=pts[i-1], b=pts[i]; return a.r + (b.r-a.r)*((t-a.t)/(b.t-a.t)); }
+    }
+    return last.r;
+  }
+
+  /* ---------- formatting ---------- */
+  function fmt(v, digits){
+    if(v==null || !isFinite(v)) return '—';
+    var d = digits==null ? (Math.abs(v)>=100?0:(Math.abs(v)>=1?2:4)) : digits;
+    return v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+  }
+  function money(v, sym, digits){ return (sym||'') + fmt(v,digits); }
+  function compact(v){
+    if(v==null||!isFinite(v)) return '—';
+    var a=Math.abs(v);
+    if(a>=1e9) return (v/1e9).toFixed(2)+'B';
+    if(a>=1e6) return (v/1e6).toFixed(2)+'M';
+    if(a>=1e4) return (v/1e3).toFixed(1)+'K';
+    return fmt(v,0);
+  }
+  function pct(v, d){
+    if(v==null||!isFinite(v)) return '—';
+    return (v>0?'+':'')+v.toFixed(d==null?2:d)+'%';
+  }
+  function cls(v){ return v>0?'up':(v<0?'down':''); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function symOf(code){ for(var i=0;i<CURRENCIES.length;i++) if(CURRENCIES[i][0]===code) return CURRENCIES[i][3]; return ''; }
+
+  /* ---------- ticker ---------- */
+  function paintTicker(){
+    var el = $('#ticker-in'); if(!el) return;
+    var ghs = rate('GHS');
+    var state = (LIVE.stale||FX.stale) ? 'stale' : 'live';
+    var label = state==='live' ? 'LIVE' : 'REFERENCE DATA — live feed unreachable';
+    var ch = LIVE.chg24;
+    el.innerHTML =
+      '<span><span class="dot '+state+'"></span>'+label+'</span>'+
+      '<span>BTC/USD <b>$'+fmt(LIVE.usd,0)+'</b>'+(ch!=null?' <span class="'+cls(ch)+'">'+pct(ch)+' 24h</span>':'')+'</span>'+
+      (ghs?'<span>BTC/GHS <b>GH₵'+fmt(LIVE.usd*ghs,0)+'</b></span><span>1 USD = <b>GH₵'+fmt(ghs,2)+'</b></span><span>GH₵1 = <b>'+fmt(1e8/(LIVE.usd*ghs),0)+' sats</b></span>':'')+
+      '<span class="sp"></span><span>Prices: '+esc(LIVE.src)+' · FX: '+esc(FX.src)+'</span>';
+  }
+
+  function onUpdate(fn){ listeners.push(fn); if(ready){ try{fn();}catch(e){console.error(e);} } }
+  function fire(){ listeners.forEach(function(fn){ try{fn();}catch(e){console.error(e);} }); }
+  async function refresh(force){
+    await Promise.all([loadLive(force), loadFX(force)]);
+    paintTicker(); ready = true; fire();
+  }
+  function start(){
+    paintTicker();
+    refresh(false);
+    setInterval(function(){ refresh(true); }, 90000);
+  }
+
+  /* ---------- SVG line chart with hover ---------- */
+  function niceTicks(min,max,n){
+    var span = max-min; if(span<=0) return [min];
+    var raw = span/n, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var norm = raw/mag, step = (norm<1.5?1:norm<3?2:norm<7?5:10)*mag;
+    var out=[], v=Math.ceil(min/step)*step;
+    for(; v<=max+step*0.001; v+=step) out.push(v);
+    return out;
+  }
+  function lineChart(el, series, o){
+    o = o||{};
+    var W=900, H=o.h||380, m={l:72,r:18,t:16,b:32};
+    var log = !!o.log, f = function(v){ return log?Math.log10(Math.max(v,1e-9)):v; };
+    var xs=[], ys=[];
+    series.forEach(function(s){ s.pts.forEach(function(p){ xs.push(p[0]); ys.push(p[1]); }); });
+    if(!xs.length){ el.innerHTML='<p class="small" style="padding:20px">No data</p>'; return; }
+    var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs);
+    var yMin=Math.min.apply(null,ys), yMax=Math.max.apply(null,ys);
+    var fy0 = log ? Math.log10(Math.max(yMin*0.8,1e-9)) : 0, fy1 = log ? Math.log10(yMax*1.25) : yMax*1.06;
+    var X=function(t){ return m.l+(t-x0)/(x1-x0||1)*(W-m.l-m.r); };
+    var Y=function(v){ return H-m.b-(f(v)-fy0)/((fy1-fy0)||1)*(H-m.t-m.b); };
+    var g='';
+    var yt = [];
+    if(log){ for(var k=Math.ceil(fy0); k<=Math.floor(fy1); k++) yt.push(Math.pow(10,k)); }
+    else yt = niceTicks(0, yMax*1.06, 5);
+    yt.forEach(function(v){
+      var y=Y(v);
+      g+='<line x1="'+m.l+'" x2="'+(W-m.r)+'" y1="'+y+'" y2="'+y+'" stroke="#1b3254" stroke-width="1"/>';
+      g+='<text x="'+(m.l-8)+'" y="'+(y+4)+'" text-anchor="end" fill="#8fa0b8" font-size="12" font-family="DM Mono,monospace">'+(o.yfmt?o.yfmt(v):compact(v))+'</text>';
+    });
+    var y0y = new Date(x0).getUTCFullYear(), y1y = new Date(x1).getUTCFullYear();
+    var stepY = (y1y-y0y)>8?2:1;
+    for(var yr=y0y+1; yr<=y1y; yr+=stepY){
+      var xx = X(Date.UTC(yr,0,1)); if(xx<m.l||xx>W-m.r) continue;
+      g+='<line x1="'+xx+'" x2="'+xx+'" y1="'+m.t+'" y2="'+(H-m.b)+'" stroke="#132641" stroke-width="1"/>';
+      g+='<text x="'+xx+'" y="'+(H-10)+'" text-anchor="middle" fill="#8fa0b8" font-size="12" font-family="DM Mono,monospace">'+yr+'</text>';
+    }
+    series.forEach(function(s){
+      var d=''; s.pts.forEach(function(p,i){ d+=(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1); });
+      if(s.area){
+        var a = d+'L'+X(s.pts[s.pts.length-1][0]).toFixed(1)+' '+(H-m.b)+'L'+X(s.pts[0][0]).toFixed(1)+' '+(H-m.b)+'Z';
+        g+='<path d="'+a+'" fill="'+s.color+'" opacity="0.18"/>';
+      }
+      g+='<path d="'+d+'" fill="none" stroke="'+s.color+'" stroke-width="'+(s.w||2.2)+'" stroke-linejoin="round" stroke-linecap="round"'+(s.dash?' stroke-dasharray="'+s.dash+'"':'')+'/>';
+    });
+    g+='<line class="xh" x1="0" x2="0" y1="'+m.t+'" y2="'+(H-m.b)+'" stroke="#f2b632" stroke-width="1" style="display:none"/>';
+    var svg = '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img">'+g+'</svg>';
+    var legend = '<div class="legend">'+series.map(function(s){ return '<span><i style="background:'+s.color+'"></i>'+esc(s.name)+'</span>'; }).join('')+'</div>';
+    el.innerHTML = svg+'<div class="tip"></div>'+legend;
+    var svgEl = el.querySelector('svg'), tip = el.querySelector('.tip'), xh = el.querySelector('.xh');
+    function nearest(pts,t){
+      var lo=0,hi=pts.length-1; while(hi-lo>1){ var mid=(lo+hi)>>1; if(pts[mid][0]<=t) lo=mid; else hi=mid; }
+      return (Math.abs(pts[lo][0]-t)<=Math.abs(pts[hi][0]-t))?pts[lo]:pts[hi];
+    }
+    svgEl.addEventListener('mousemove', function(e){
+      var r = svgEl.getBoundingClientRect();
+      var px = (e.clientX-r.left)/r.width*W;
+      if(px<m.l||px>W-m.r){ tip.style.display='none'; xh.style.display='none'; return; }
+      var t = x0+(px-m.l)/(W-m.l-m.r)*(x1-x0);
+      var html='<div style="color:#f2b632">'+new Date(t).toISOString().slice(0,10)+'</div>';
+      series.forEach(function(s){ var p=nearest(s.pts,t); html+='<div><span style="color:'+s.color+'">●</span> '+esc(s.name)+': <b>'+(o.tfmt?o.tfmt(p[1]):fmt(p[1]))+'</b></div>'; });
+      tip.innerHTML=html; tip.style.display='block';
+      var bx = e.clientX - el.getBoundingClientRect().left + 14;
+      if(bx+200>el.clientWidth) bx -= 230;
+      tip.style.left=bx+'px'; tip.style.top=(e.clientY-el.getBoundingClientRect().top-10)+'px';
+      xh.setAttribute('x1',px); xh.setAttribute('x2',px); xh.style.display='';
+    });
+    svgEl.addEventListener('mouseleave', function(){ tip.style.display='none'; xh.style.display='none'; });
+  }
+
+  if(typeof document!=='undefined'){
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start); else start();
+  }
+
+  return {
+    MONTHLY:MONTHLY, MONTHS:MONTHS, SERIES:SERIES, CURRENCIES:CURRENCIES,
+    $:$, $$:$$, esc:esc, fmt:fmt, money:money, compact:compact, pct:pct, cls:cls, symOf:symOf,
+    fetchJSON:fetchJSON, fetchText:fetchText, cacheGet:cacheGet, cacheSet:cacheSet,
+    loadLive:loadLive, loadFX:loadFX, loadDaily:loadDaily, rate:rate, live:live, fxInfo:fxInfo, btcIn:btcIn,
+    fullSeries:fullSeries, priceAt:priceAt, ghsPerUsdAt:ghsPerUsdAt, hasDaily:function(){return !!DAILY;},
+    onUpdate:onUpdate, refresh:refresh, lineChart:lineChart, niceTicks:niceTicks
+  };
+})();
+
+</script>
+
+<script>
+
+(function(){
+  var $=BWS.$, esc=BWS.esc;
+  var KEY='ghana_desk_portfolio_v1';
+  var state={wallets:[],manual:[]}, results={}, prices={}, vcur='USD', busy=false;
+
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+  function loadState(){ try{ var v=JSON.parse(localStorage.getItem(KEY)); if(v && v.wallets){ state=v; if(!state.manual) state.manual=[]; } }catch(e){} }
+  function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+
+  var TOK = {
+    USDC:{sym:'USDC',cg:'usd-coin',cls:'Stablecoins'}, USDT:{sym:'USDT',cg:'tether',cls:'Stablecoins'}, DAI:{sym:'DAI',cg:'dai',cls:'Stablecoins'},
+    WBTC:{sym:'WBTC',cg:'wrapped-bitcoin',cls:'Bitcoin'}, CBBTC:{sym:'cbBTC',cg:'coinbase-wrapped-btc',cls:'Bitcoin'}, BTCB:{sym:'BTCB',cg:'binance-bitcoin',cls:'Bitcoin'},
+    BTCb:{sym:'BTC.b',cg:'bitcoin-avalanche-bridged-btc-b',cls:'Bitcoin'}, WETH:{sym:'WETH',cg:'weth',cls:'Ethereum'}, WAVAX:{sym:'WAVAX',cg:'wrapped-avax',cls:'Other'}
+  };
+  function T(k,addr,dec){ var o=TOK[k]; return {sym:o.sym,cg:o.cg,cls:o.cls,addr:addr,dec:dec}; }
+  var ETHN={sym:'ETH',cg:'ethereum',cls:'Ethereum'};
+  var CHAINS=[
+    {name:'Ethereum', rpc:['https://ethereum-rpc.publicnode.com','https://eth.llamarpc.com'], native:ETHN, ex:'https://etherscan.io/address/',
+      tokens:[T('USDC','0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',6),T('USDT','0xdAC17F958D2ee523a2206206994597C13D831ec7',6),T('DAI','0x6B175474E89094C44Da98b954EedeAC495271d0F',18),T('WBTC','0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',8),T('WETH','0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',18)]},
+    {name:'Base', rpc:['https://base-rpc.publicnode.com','https://mainnet.base.org'], native:ETHN, ex:'https://basescan.org/address/',
+      tokens:[T('USDC','0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',6),T('CBBTC','0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf',8),T('WETH','0x4200000000000000000000000000000000000006',18)]},
+    {name:'Arbitrum', rpc:['https://arbitrum-one-rpc.publicnode.com','https://arb1.arbitrum.io/rpc'], native:ETHN, ex:'https://arbiscan.io/address/',
+      tokens:[T('USDC','0xaf88d065e77c8cC2239327C5EDb3A432268e5831',6),T('USDT','0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9',6),T('WBTC','0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f',8),T('WETH','0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',18)]},
+    {name:'Optimism', rpc:['https://optimism-rpc.publicnode.com','https://mainnet.optimism.io'], native:ETHN, ex:'https://optimistic.etherscan.io/address/',
+      tokens:[T('USDC','0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',6),T('USDT','0x94b008aA00579c1307B0EF2c499aD98a8ce58e58',6),T('WETH','0x4200000000000000000000000000000000000006',18)]},
+    {name:'Polygon', rpc:['https://polygon-bor-rpc.publicnode.com','https://polygon-rpc.com'], native:{sym:'POL',cg:'polygon-ecosystem-token',cls:'Other'}, ex:'https://polygonscan.com/address/',
+      tokens:[T('USDC','0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',6),T('USDT','0xc2132D05D31c914a87C6611C10748AEb04B58e8F',6),T('WBTC','0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6',8),T('WETH','0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',18)]},
+    {name:'BNB Chain', rpc:['https://bsc-rpc.publicnode.com','https://bsc-dataseed.binance.org'], native:{sym:'BNB',cg:'binancecoin',cls:'Other'}, ex:'https://bscscan.com/address/',
+      tokens:[T('USDT','0x55d398326f99059fF775485246999027B3197955',18),T('USDC','0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',18),T('BTCB','0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',18)]},
+    {name:'Avalanche', rpc:['https://api.avax.network/ext/bc/C/rpc','https://avalanche-c-chain-rpc.publicnode.com'], native:{sym:'AVAX',cg:'avalanche-2',cls:'Other'}, ex:'https://snowtrace.io/address/',
+      tokens:[T('USDC','0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',6),T('USDT','0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7',6),T('WBTC','0x50b7545627a5162F82A992c33b87aDc75187B218',8),T('BTCb','0x152b9d0FdC40C096757F570A51E494bd4b943E50',8),T('WAVAX','0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7',18)]}
+  ];
+  var SOLMINTS={'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v':{sym:'USDC',cg:'usd-coin',cls:'Stablecoins'},
+    'So11111111111111111111111111111111111111112':{sym:'wSOL',cg:'solana',cls:'Solana'},
+    'JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN':{sym:'JUP',cg:'jupiter-exchange-solana',cls:'Other'},
+    'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263':{sym:'BONK',cg:'bonk',cls:'Other'}};
+  var SOLRPC=['https://api.mainnet-beta.solana.com','https://solana-rpc.publicnode.com'];
+
+  /* ---------- network helpers ---------- */
+  async function post(url, body, ms){
+    var ctl=(typeof AbortController!=='undefined')?new AbortController():null, t=setTimeout(function(){ if(ctl) ctl.abort(); }, ms||12000);
+    try{
+      var r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:ctl?ctl.signal:undefined});
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return await r.json();
+    } finally { clearTimeout(t); }
+  }
+  async function rpc(urls, body){
+    var lastErr;
+    for(var i=0;i<urls.length;i++){
+      try{ var j=await post(urls[i], body); if(j && (Array.isArray(j) || j.result!==undefined)) return j; lastErr=new Error((j&&j.error&&j.error.message)||'bad response'); }catch(e){ lastErr=e; }
+    }
+    throw lastErr||new Error('rpc failed');
+  }
+  function hexToNum(h,dec){ if(!h || h==='0x') return 0; try{ return Number(BigInt(h))/Math.pow(10,dec); }catch(e){ return 0; } }
+
+  async function loadBtc(addr){
+    var j, urls=['https://mempool.space/api/address/'+addr,'https://blockstream.info/api/address/'+addr], err;
+    for(var i=0;i<urls.length;i++){ try{ j=await BWS.fetchJSON(urls[i],12000); break; }catch(e){ err=e; } }
+    if(!j) throw err||new Error('unreachable');
+    var c=j.chain_stats||{}, m=j.mempool_stats||{};
+    var sats=(c.funded_txo_sum||0)-(c.spent_txo_sum||0)+(m.funded_txo_sum||0)-(m.spent_txo_sum||0);
+    var out=[]; if(sats>0) out.push({sym:'BTC',cg:'bitcoin',cls:'Bitcoin',chain:'Bitcoin',amt:sats/1e8});
+    return {holdings:out, note:''};
+  }
+  async function loadEvm(addr){
+    var a=addr.toLowerCase().replace('0x',''), pad='000000000000000000000000'+a, out=[], fails=0, names=[];
+    await Promise.all(CHAINS.map(async function(ch){
+      var batch=[{jsonrpc:'2.0',id:0,method:'eth_getBalance',params:[addr,'latest']}];
+      ch.tokens.forEach(function(t,i){ batch.push({jsonrpc:'2.0',id:i+1,method:'eth_call',params:[{to:t.addr,data:'0x70a08231'+pad},'latest']}); });
+      try{
+        var res=await rpc(ch.rpc, batch);
+        if(!Array.isArray(res)) throw new Error('no batch');
+        var by={}; res.forEach(function(r){ by[r.id]=r; });
+        var nat=hexToNum(by[0]&&by[0].result,18);
+        if(nat>0) out.push({sym:ch.native.sym,cg:ch.native.cg,cls:ch.native.cls,chain:ch.name,amt:nat});
+        ch.tokens.forEach(function(t,i){ var v=hexToNum(by[i+1]&&by[i+1].result,t.dec); if(v>0) out.push({sym:t.sym,cg:t.cg,cls:t.cls,chain:ch.name,amt:v}); });
+      }catch(e){ fails++; names.push(ch.name); }
+    }));
+    if(fails===CHAINS.length) throw new Error('no chain reachable');
+    return {holdings:out, note: fails?('Could not read: '+names.join(', ')):''};
+  }
+  async function loadSol(addr){
+    var out=[], b=await rpc(SOLRPC,{jsonrpc:'2.0',id:1,method:'getBalance',params:[addr]});
+    var sol=(b.result&&b.result.value||0)/1e9;
+    if(sol>0) out.push({sym:'SOL',cg:'solana',cls:'Solana',chain:'Solana',amt:sol});
+    var progs=['TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA','TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb'], note='';
+    for(var i=0;i<progs.length;i++){
+      try{
+        var r=await rpc(SOLRPC,{jsonrpc:'2.0',id:2,method:'getTokenAccountsByOwner',params:[addr,{programId:progs[i]},{encoding:'jsonParsed'}]});
+        ((r.result&&r.result.value)||[]).forEach(function(acc){
+          var info=acc.account.data.parsed.info, amt=info.tokenAmount&&info.tokenAmount.uiAmount||0; if(!(amt>0)) return;
+          var k=SOLMINTS[info.mint];
+          out.push(k?{sym:k.sym,cg:k.cg,cls:k.cls,chain:'Solana',amt:amt}:{sym:info.mint.slice(0,4)+'…'+info.mint.slice(-4),mint:info.mint,cg:null,cls:'Other',chain:'Solana',amt:amt});
+        });
+      }catch(e){ note='Token list unavailable (rate-limited) — showing SOL only.'; }
+    }
+    return {holdings:out, note:note};
+  }
+
+  /* ---------- prices ---------- */
+  function manualHoldings(){
+    var map={BTC:['bitcoin','Bitcoin'],ETH:['ethereum','Ethereum'],SOL:['solana','Solana'],USDT:['tether','Stablecoins'],USDC:['usd-coin','Stablecoins']};
+    return state.manual.map(function(m){ var k=map[m.asset]; return {sym:m.asset,cg:k[0],cls:k[1],chain:m.label||'Off-chain',amt:m.amount,manual:true,mid:m.id}; });
+  }
+  function allHoldings(){
+    var h=[]; state.wallets.forEach(function(w){ var r=results[w.id]; if(r&&r.holdings) h=h.concat(r.holdings.map(function(x){ x.wid=w.id; return x; })); });
+    return h.concat(manualHoldings());
+  }
+  async function fetchPrices(){
+    var hs=allHoldings(), ids={}, mints={};
+    hs.forEach(function(h){ if(h.cg) ids[h.cg]=1; else if(h.mint) mints[h.mint]=1; });
+    ids.bitcoin=1; ids.ethereum=1; ids.solana=1;
+    try{
+      var j=await BWS.fetchJSON('https://api.coingecko.com/api/v3/simple/price?ids='+Object.keys(ids).join(',')+'&vs_currencies=usd&include_24hr_change=true',12000);
+      Object.keys(j).forEach(function(k){ prices[k]={usd:j[k].usd,chg:j[k].usd_24h_change}; });
+    }catch(e){}
+    var ms=Object.keys(mints).slice(0,30);
+    if(ms.length){ try{
+      var s=await BWS.fetchJSON('https://api.coingecko.com/api/v3/simple/token_price/solana?contract_addresses='+ms.join(',')+'&vs_currencies=usd&include_24hr_change=true',12000);
+      Object.keys(s).forEach(function(k){ prices['sol:'+k]={usd:s[k].usd,chg:s[k].usd_24h_change}; });
+    }catch(e){} }
+  }
+  function priceOf(h){
+    var p=h.cg?prices[h.cg]:(h.mint?prices['sol:'+h.mint]:null);
+    if(p && p.usd) return p;
+    if(h.cls==='Stablecoins') return {usd:1,chg:0,est:true};
+    if(h.cls==='Bitcoin') return {usd:BWS.live().usd,chg:BWS.live().chg24,est:true};
+    return null;
+  }
+
+  /* ---------- load / refresh ---------- */
+  async function loadWallet(w){
+    results[w.id]={status:'loading',holdings:[]}; render();
+    try{
+      var r = w.type==='btc'?await loadBtc(w.addr) : w.type==='evm'?await loadEvm(w.addr) : await loadSol(w.addr);
+      results[w.id]={status:'ok',holdings:r.holdings,note:r.note};
+    }catch(e){ results[w.id]={status:'err',holdings:[],note:'Could not load — '+(e&&e.message?e.message:'network error')+'. Try Refresh in a minute.'}; }
+  }
+  async function refreshAll(){
+    if(busy) return; busy=true; $('#refresh').disabled=true;
+    $('#status').innerHTML='<span class="dot stale"></span>Reading balances…';
+    await Promise.all(state.wallets.map(loadWallet));
+    await fetchPrices();
+    busy=false; $('#refresh').disabled=false;
+    $('#status').innerHTML='<span class="dot live"></span>Updated '+new Date().toLocaleTimeString()+' · prices: CoinGecko · balances read directly from public blockchain data';
+    render();
+  }
+
+  /* ---------- rendering ---------- */
+  var CLSCOL={Bitcoin:'#f2b632',Ethereum:'#8fa8ff',Solana:'#2ecc9a',Stablecoins:'#4aa3df','Other':'#8fa0b8'};
+  function fx(){ return vcur==='GHS'?(BWS.rate('GHS')||1):1; }
+  function sym(){ return vcur==='GHS'?'GH₵':'$'; }
+  function val(h){ var p=priceOf(h); return p?h.amt*p.usd:0; }
+  function bars(el, map, colors){
+    var tot=0; Object.keys(map).forEach(function(k){ tot+=map[k]; });
+    var ks=Object.keys(map).sort(function(a,b){ return map[b]-map[a]; });
+    el.innerHTML = tot>0 ? ks.map(function(k){ var pc=map[k]/tot*100; return '<div style="margin:9px 0"><div class="row small"><b style="color:#fff">'+esc(k)+'</b><span class="sp"></span><span class="mono">'+sym()+BWS.fmt(map[k]*fx(),0)+' · '+pc.toFixed(1)+'%</span></div><div style="height:10px;border-radius:5px;background:#12294a"><div style="height:10px;border-radius:5px;width:'+Math.max(1.5,pc)+'%;background:'+((colors&&colors[k])||'#f2b632')+'"></div></div></div>'; }).join('') : '<div class="small">Nothing to show yet.</div>';
+  }
+  function render(){
+    var hs=allHoldings(), total=0, byCls={}, byChain={}, agg={}, chgW=0, chgBase=0, btcVal=0;
+    hs.forEach(function(h){
+      var p=priceOf(h), v=p?h.amt*p.usd:0; total+=v;
+      byCls[h.cls]=(byCls[h.cls]||0)+v; byChain[h.chain]=(byChain[h.chain]||0)+v;
+      if(h.cls==='Bitcoin') btcVal+=v;
+      if(p && p.chg!=null && v>0){ chgW+=v*p.chg/100/(1+p.chg/100); chgBase+=v/(1+p.chg/100); }
+      var key=h.sym+'|'+(h.cg||h.mint); var a=agg[key]; if(!a) a=agg[key]={sym:h.sym,amt:0,where:{},price:p,val:0,cls:h.cls};
+      a.amt+=h.amt; a.val+=v; a.where[h.chain]=1; a.price=p;
+    });
+    var L=BWS.live(), btcEq=L.usd?total/L.usd:0, chg=chgBase?chgW/chgBase*100:null;
+    $('#sum').innerHTML =
+      '<div class="card stat"><div class="lbl">Total value</div><div class="val gold">'+sym()+BWS.fmt(total*fx(),0)+'</div><div class="sub">'+hs.length+' holdings in '+(state.wallets.length+state.manual.length)+' places</div></div>'+
+      '<div class="card stat"><div class="lbl">In Bitcoin terms</div><div class="val">₿ '+btcEq.toFixed(6)+'</div><div class="sub">'+BWS.fmt(btcEq*1e8,0)+' sats equivalent</div></div>'+
+      '<div class="card stat"><div class="lbl">Bitcoin share</div><div class="val">'+(total?(btcVal/total*100).toFixed(1):'0.0')+'%</div><div class="sub">of portfolio held as BTC / wrapped BTC</div></div>'+
+      '<div class="card stat"><div class="lbl">24h change (est.)</div><div class="val '+BWS.cls(chg)+'">'+(chg==null?'—':BWS.pct(chg,2))+'</div><div class="sub">price moves only</div></div>';
+
+    var wr='';
+    state.wallets.forEach(function(w){
+      var r=results[w.id]||{status:'loading',holdings:[]}, v=0; r.holdings.forEach(function(h){ v+=val(h); });
+      var net=w.type==='btc'?'Bitcoin':w.type==='evm'?'EVM (7 chains)':'Solana';
+      var link=w.type==='btc'?'https://mempool.space/address/'+w.addr:w.type==='sol'?'https://solscan.io/account/'+w.addr:'https://debank.com/profile/'+w.addr;
+      var st=r.status==='loading'?'<span class="pill">loading…</span>':r.status==='err'?'<span class="pill red">error</span> <span class="small">'+esc(r.note||'')+'</span>':'<span class="pill green">ok</span>'+(r.note?' <span class="small">'+esc(r.note)+'</span>':'');
+      wr+='<tr><td><b>'+esc(w.label||'Wallet')+'</b><div class="small mono" style="word-break:break-all"><a target="_blank" rel="noopener noreferrer" href="'+esc(link)+'">'+esc(w.addr.slice(0,8)+'…'+w.addr.slice(-6))+'</a></div></td><td>'+net+'</td><td class="num">'+sym()+BWS.fmt(v*fx(),0)+'</td><td>'+st+'</td><td><button class="chip" data-rm="'+w.id+'">Remove</button></td></tr>';
+    });
+    state.manual.forEach(function(m){
+      var h=manualHoldings().filter(function(x){return x.mid===m.id;})[0], v=h?val(h):0;
+      wr+='<tr><td><b>'+esc(m.label||'Exchange / off-chain')+'</b><div class="small">manual entry</div></td><td>'+esc(m.asset)+'</td><td class="num">'+sym()+BWS.fmt(v*fx(),0)+'</td><td><span class="pill">'+BWS.fmt(m.amount,6)+' '+esc(m.asset)+'</span></td><td><button class="chip" data-rmm="'+m.id+'">Remove</button></td></tr>';
+    });
+    $('#wtb').innerHTML=wr||'<tr><td colspan="5" class="small">No wallets yet — add a public address above to get started.</td></tr>';
+
+    var keys=Object.keys(agg).sort(function(a,b){ return agg[b].val-agg[a].val; });
+    $('#htb').innerHTML=keys.map(function(k){
+      var a=agg[k], p=a.price, where=Object.keys(a.where).join(', ');
+      return '<tr><td><b>'+esc(a.sym)+'</b></td><td class="small">'+esc(where)+'</td><td class="num">'+BWS.fmt(a.amt,a.amt<1?6:4)+'</td><td class="num">'+(p?'$'+BWS.fmt(p.usd,p.usd<1?4:2)+(p.est?'*':''):'<span class="gold">no price</span>')+'</td><td class="num">'+sym()+BWS.fmt(a.val*fx(),0)+'</td><td class="num">'+(total?(a.val/total*100).toFixed(1)+'%':'—')+'</td></tr>';
+    }).join('')||'<tr><td colspan="6" class="small">Holdings will appear here once a wallet loads.</td></tr>';
+
+    bars($('#by-class'), byCls, CLSCOL); bars($('#by-chain'), byChain, null);
+  }
+
+  /* ---------- add / remove ---------- */
+  function validate(type, a){
+    if(/\s/.test(a)) return 'That looks like a recovery phrase or contains spaces. Never enter a recovery phrase anywhere — only your public address.';
+    if(/^[xyzXYZ]pub/.test(a)) return 'Extended public keys (xpub/zpub) aren’t supported. Paste individual Bitcoin addresses.';
+    if(/^[0-9a-fA-F]{64}$/.test(a) || /^[5KL][1-9A-HJ-NP-Za-km-z]{50,51}$/.test(a)) return 'That looks like a PRIVATE KEY. Never paste it anywhere. Delete it and use your public address.';
+    if(type==='btc' && !/^(bc1[a-z0-9]{25,62}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/i.test(a)) return 'That doesn’t look like a Bitcoin address (starts with bc1, 1 or 3).';
+    if(type==='evm' && !/^0x[0-9a-fA-F]{40}$/.test(a)) return 'That doesn’t look like an EVM address (0x followed by 40 characters).';
+    if(type==='sol' && !/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(a)) return 'That doesn’t look like a Solana address.';
+    return '';
+  }
+  $('#addw').addEventListener('click', function(){
+    var a=$('#wa').value.trim(), t=$('#wt').value, err=validate(t,a), e=$('#werr');
+    if(!a){ e.innerHTML='<span class="down">Paste a public address first.</span>'; return; }
+    if(err){ e.innerHTML='<span class="down">'+esc(err)+'</span>'; return; }
+    if(state.wallets.some(function(w){ return w.addr.toLowerCase()===a.toLowerCase(); })){ e.innerHTML='<span class="down">That address is already added.</span>'; return; }
+    var w={id:uid(),label:$('#wl').value.trim(),type:t,addr:a}; state.wallets.push(w); save();
+    e.textContent=''; $('#wa').value=''; $('#wl').value='';
+    loadWallet(w).then(fetchPrices).then(render);
+  });
+  $('#addm').addEventListener('click', function(){
+    var n=parseFloat($('#mn').value); if(!(n>0)) return;
+    state.manual.push({id:uid(),label:$('#ml').value.trim(),asset:$('#ma').value,amount:n}); save();
+    $('#mn').value=''; $('#ml').value=''; render(); fetchPrices().then(render);
+  });
+  document.addEventListener('click', function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.rm){ state.wallets=state.wallets.filter(function(w){return w.id!==b.dataset.rm;}); delete results[b.dataset.rm]; save(); render(); }
+    if(b.dataset.rmm){ state.manual=state.manual.filter(function(m){return m.id!==b.dataset.rmm;}); save(); render(); }
+  });
+  $('#refresh').addEventListener('click', refreshAll);
+  $('#vcur').addEventListener('change', function(){ vcur=this.value; render(); });
+  $('#clear').addEventListener('click', function(){ if(confirm('Remove all saved wallets and holdings from this browser?')){ state={wallets:[],manual:[]}; results={}; save(); render(); } });
+  $('#exp').addEventListener('click', function(){
+    var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}), a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='ghana-desk-portfolio-backup.json'; document.body.appendChild(a); a.click(); a.remove();
+  });
+  $('#imp').addEventListener('change', function(){
+    var f=this.files[0]; if(!f) return; var rd=new FileReader();
+    rd.onload=function(){ try{ var v=JSON.parse(rd.result); if(!v.wallets) throw 0; state={wallets:v.wallets.filter(function(w){return w&&w.addr&&w.type&&!validate(w.type,w.addr);}).map(function(w){return {id:w.id||uid(),label:String(w.label||''),type:w.type,addr:w.addr};}),manual:(v.manual||[]).filter(function(m){return m&&m.amount>0&&/^(BTC|ETH|SOL|USDT|USDC)$/.test(m.asset);}).map(function(m){return {id:m.id||uid(),label:String(m.label||''),asset:m.asset,amount:+m.amount};})}; save(); refreshAll(); }catch(e){ alert('That file is not a valid portfolio backup.'); } };
+    rd.readAsText(f);
+  });
+
+  loadState(); render();
+  BWS.onUpdate(function(){ render(); });
+  if(state.wallets.length) setTimeout(refreshAll, 400);
+})();
+
+</script>
+</body>
+</html>
